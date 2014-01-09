@@ -1,0 +1,96 @@
+-
+  I create partner's bank record.
+- 
+  !record {model: res.partner.bank, id: res_partner_bank_1}:
+    state: 'bank'
+    acc_number: 151424214145
+    partner_id: base.res_partner_14
+    cc_number: 370000000000002
+    cc_e_d_month: 10
+    cc_e_d_year: 2013
+    cc_v: 123
+
+-
+  I create a record for account journal
+-
+  !record {model: account.journal, id: account_journal_01}:
+    name: Cash1
+    code: BNK01
+    type: 'cash'
+    user_id: base.user_root
+    company_id: base.main_company
+
+-
+  I modify a record for partner's company having creidcard details.
+- 
+  !record {model: res.company, id: base.main_company}:
+    currency_id: base.EUR
+    cc_transaction_key: 28hK9cWjCB6299n6
+    cc_login: 2GP73eWWvb
+    cc_testmode: True
+-
+  I create a sale order.
+-
+  !record {model: sale.order, id: sale_order_so1}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-09-17'
+    partner_id: base.res_partner_14
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+    payment_method: 'cc_pre_auth'
+    order_policy: 'credit_card'
+- 
+  Creating a sale.order.line record
+- 
+  !record {model: sale.order.line, id: sale_order_line_cardgraphicscard1}:
+    company_id: base.main_company
+    name: '[CARD] Graphics Card'
+    order_id: sale_order_so1
+    order_partner_id: base.res_partner_14
+    price_unit: 885.0
+    product_id: product.product_product_24
+    product_uom: product.product_uom_unit
+    product_uom_qty: 1.0
+    product_uos_qty: 1.0
+    salesman_id: base.user_root
+    state: draft
+    th_weight: 0.0
+    type: make_to_stock
+-
+  I Confirm the sale order
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order_so1}
+
+- 
+  I create an invoice by clicking on 'Invoice' button.
+- 
+  !record {model: sale.order.line.make.invoice, id: sale_order_line_make_invoice_0}:
+
+-
+  I clicked on 'Create Invoice' button to create an invoice.
+-
+  !python {model: sale.order.line.make.invoice}: |
+    context.update({'active_model': 'sale.order.line','active_ids': [ref('sale_order_line_cardgraphicscard1')]})
+    invoice_obj = self.make_invoices(cr, uid, [ref('sale_order_line_make_invoice_0')], context=context)
+
+-
+  I clicked on 'Pay' button.
+-
+  !python {model: sale.order}: |
+    import netsvc
+    wf_service = netsvc.LocalService("workflow")
+    invoice_id = False
+    order_id = self.browse(cr, uid, ref('sale_order_so1'), context=context)
+    for invoice in order_id.invoice_ids:
+      if invoice.state != 'open':
+        wf_service.trg_validate(uid, 'account.invoice', invoice.id, 'invoice_open', cr)
+      invoice_id = invoice.id
+      assert invoice_id, invoice_id 
+    user = self.pool.get('res.users').browse(cr, uid, ref('base.user_root'), context=context)
+    self.pool.get('account.invoice').write(cr, uid, invoice_id, {'credit_card': True}, context=context)
+    voucher_ids = self.pool.get('account.voucher').create(cr, uid, {'partner_id': order_id.partner_id.id, 'amount': order_id.amount_total, 'name': order_id.name, 'close_after_process': True, 'invoice_type': 'out_invoice', 'rel_sale_order_id': ref('sale_order_so1'), 'cc_order_amt': order_id.amount_total, 'default_cc_order_date': order_id.date_order, 'type':'receipt', 'journal_id':user.company_id.cc_journal_id and user.company_id.cc_journal_id.id or False, 'invoice_id':invoice_id, 'type': 'receipt', 'sale_id': ref('sale_order_so1'), 'account_id': ref('account.a_recv'), 'journal_id': ref('account_journal_01')})
+    update_voucher_ids = self.pool.get('account.voucher').write(cr, uid, [voucher_ids], {'journal_id': ref('account_journal_01'), 'cc_details': ref('res_partner_bank_1')}, context)
+    validate_voucher = self.pool.get('account.voucher').proforma_voucher(cr, uid, [voucher_ids])
+    self.pool.get('account.voucher').cancel_cc(cr, uid, [voucher_ids])
+

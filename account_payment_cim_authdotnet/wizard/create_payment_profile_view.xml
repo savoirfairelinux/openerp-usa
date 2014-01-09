@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+     <data>
+
+        <record id="create_payment_profile_view" model="ir.ui.view">
+             <field name="name">create.payment.profile.form</field>
+             <field name="model">create.payment.profile</field>
+             <field name="arch" type="xml">
+				<form string="Payment Profile" version='7.0'>
+					<group colspan="2" col="4">
+					    <field name='cc_card_type' required='1' />
+						<field name="cc_number" />
+						<field name="cc_ed_month" />
+						<field name="cc_ed_year" />
+						<field name="cc_verify_code" />
+						<field name="description" />
+						<field name="address_id" invisible="1" domain="[('parent_id','=',partner_id)]"/>
+						<field name="partner_id" invisible="1"/>
+						<!--button name="button_install" states="uninstalled" string="Schedule for Installation" icon="terp-gtk-jump-to-ltr" type="object"/-->
+						</group>
+					<newline/>
+					<footer>
+						<button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="create_payment_profile" string="Create Payment Profile" type="object" icon="gtk-ok" default_focus="1" />
+	 				</footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_create_payment_profile" model="ir.actions.act_window">
+            <field name="name">Payment Profile</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">create.payment.profile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+			<field name="view_id" ref="create_payment_profile_view"/>
+            <field name="target">new</field>
+        </record>
+
+	</data>
+</openerp>

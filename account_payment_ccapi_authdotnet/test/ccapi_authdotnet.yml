@@ -1,0 +1,74 @@
+-
+  I modify a record for partner's company having authorization details.
+- 
+  !record {model: res.company, id: base.main_company}:
+    currency_id: base.EUR
+    cc_transaction_key: 28hK9cWjCB6299n6
+    cc_login: 2GP73eWWvb
+    cc_testmode: True
+-
+  wiz record button.
+- 
+  !record {model: account.post.voucher, id: account_post_voucher_01}:
+    total_paid: 0.0
+    total_allocated: 0.0
+    ok_to_go: 0.0
+-
+  I create a record for partner's bank account.
+-
+  !record {model: res.partner.bank, id: res_partner_bank_5}:
+    state: 'bank'
+    acc_number: 151424214145
+    partner_id: base.res_partner_14
+    cc_number: 370000000000002
+    cc_e_d_month: 12
+    cc_e_d_year: 13
+    cc_v: 131
+-
+  I create a record for account journal
+-
+  !record {model: account.journal, id: account_journal_05}:
+    name: Cash5
+    code: BNK05
+    type: 'cash'
+    user_id: base.user_root
+    company_id: base.main_company
+-
+  I create a sale order with payment method details.
+-
+  !record {model: sale.order, id: sale_order_so6}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-09-17'
+    partner_id: base.res_partner_14
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+    payment_method: 'cc_pre_auth'
+    order_policy: 'credit_card'
+    order_line:
+     - name: '[CARD] Graphics Card'
+       product_id: product.product_product_24
+       product_uom_qty: 1.0
+       price_unit: 885.0
+-
+  I Confirm the sale order
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order_so6}
+-
+  I create an invoice
+-
+  !workflow {model: sale.order, action: subflow.paid, ref: sale_order_so6}
+-
+  I click on 'Register Payment' button
+-
+  !python {model: account.invoice}: |
+    ctx={}
+    order_id = self.pool.get('sale.order').browse(cr, uid, ref('sale_order_so6'), context=context).invoice_ids[0].id
+    inv_rec = self.browse(cr, uid, order_id, context=context)
+    voucher_ids = self.pool.get('account.voucher').create(cr, uid, {'payment_expected_currency': inv_rec.currency_id.id, 'partner_id': self.pool.get('res.partner')._find_accounting_partner(inv_rec.partner_id).id, 'amount': inv_rec.type in ('out_refund', 'in_refund') and -inv_rec.residual or inv_rec.residual, 'cc_order_amt': inv_rec.type in ('out_refund', 'in_refund') and -inv_rec.residual or inv_rec.residual, 'reference': inv_rec.name, 'close_after_process': True, 'invoice_type': inv_rec.type, 'invoice_id': inv_rec.id, 'type': inv_rec.type in ('out_invoice','out_refund') and 'receipt' or 'payment', 'journal_id': ref('account_journal_05'), 'account_id': ref('account.a_recv'), 'cc_details': ref('res_partner_bank_5')})
+    #assert not voucher_ids, voucher_ids 
+    ctx.update({'active_model': 'account.voucher', 'active_ids': [voucher_ids], 'active_id': voucher_ids})
+    wiz_id = self.pool.get('account.post.voucher').launch_wizard(cr, uid, [ref('account_post_voucher_01')], ctx)
+    self.pool.get('account.voucher').authorize(cr, uid, [voucher_ids])
+    charge_voucher_ids = self.pool.get('account.voucher').write(cr, uid, [voucher_ids], {'cc_charge': True, 'cc_p_authorize': False}, context)
+    self.pool.get('account.voucher').authorize(cr, uid, [voucher_ids])

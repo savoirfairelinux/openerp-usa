@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--Adds Menu for the Shipping Configuration-->
+		<menuitem id="negotiated_shipping_config" parent="base.menu_base_config" name="Negotiated Shipping" sequence="55"
+				groups="base.group_erp_manager,base.group_sale_manager,base.group_system"/>
+
+        <!--Zone Map Tree View-->
+        <!-- Adds fields Zone, State and Rate configuration to Zone Map Tree View -->
+        <record id="zone_map_tree" model="ir.ui.view">
+            <field name="name">zone.map.tree</field>
+            <field name="model">zone.map</field>
+            <field name="arch" type="xml">
+                <tree string='Zone Map'>
+                    <field name="zone" select="1"/>
+                    <field name="state_id" select="1"/>
+                    <field name="rate_config_id" select="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Zone Map Form-->
+        <!--Adds fields Zone, State and Rate configuration to Zone Map Form View-->
+
+        <record id="zone_map_form" model="ir.ui.view">
+            <field name="name">zone.map.form</field>
+            <field name="model">zone.map</field>
+            <field name="arch" type="xml">
+                <form string='Zone Map' version="7.0">
+                    <sheet>
+                    	<group>
+		                    <field name="zone" select="1"/>
+		                    <field name="state_id" select="1"/>
+		                    <field name="rate_config_id" select="1"/>
+		                 </group>
+		            </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Zone Map Action Record -->
+        <record id="zone_map_action" model="ir.actions.act_window">
+            <field name="name">Zone Map</field>
+            <field name="res_model">zone.map</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="zone_map_tree"/>
+        </record>
+
+        <!-- Menu item for for Zone Map under the Menu Localisation-->
+        <menuitem
+            id="zone_map_menu"
+            name="Zone Map"
+            parent="negotiated_shipping_config"
+            action="zone_map_action" />
+
+		<!--SHIPPING RATE-->
+		<!--Tree view for Shipping Rate-->
+		<record id="tree_view_for_shipping_rate" model="ir.ui.view">
+			<field name="name">tree.view.for.shipping.rate</field>
+			<field name="model">shipping.rate</field>
+			<field name="arch" type="xml">
+				<tree string='Shipping Rate'>
+					<field name="name"/>
+					<field name="from_weight"/>
+					<field name="to_weight"/>
+					<field name="charge"/>
+					<field name="over_cost"/>
+					<field name="country_id"/>
+					<field name="zone"/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Form view for Shipping Rate-->
+		<record id="form_view_for_shipping_rate" model="ir.ui.view">
+			<field name="name">form.view.for.shipping.rate</field>
+			<field name="model">shipping.rate</field>
+			<field name="arch" type="xml">
+				<form string='Shipping Rate' version="7.0">
+				    <sheet>
+					<group colspan="4" col="4" string="">
+						<field name="name" select="1" colspan="1"/>
+						<newline/>
+						<field name="from_weight" select="1" colspan="1"/>
+						<field name="to_weight" select="1" colspan="1"/>
+						<newline/>
+						<field name="charge" select="1" colspan="1"/>
+						<field name="over_cost" select="1" colspan="1"/>
+						<!--  <label colspan="3"/> -->
+						<newline/>
+						<field name="country_id" select="1" colspan="1"/>
+						<field name="zone" attrs="{'invisible':[('name', '=', 'ups_ground')]}"/>
+						<field name="card_id"/>
+					</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Action Record for Shipping Rate-->
+		<record id="action_for_shipping_rate" model="ir.actions.act_window">
+			<field name="name">Shipping Rates</field>
+			<field name="res_model">shipping.rate</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_shipping_rate"/>
+		</record>
+
+		<!-- Shipping Rate menu-->
+		<menuitem id="shipping_rate" parent="negotiated_shipping_config" sequence="55" action="action_for_shipping_rate"  
+			groups="base.group_erp_manager,base.group_sale_manager,base.group_system"/>
+
+		<!--SHIPPING RATE CARD-->
+		<!-- Shipping Rate Card List View-->
+		<record id="tree_view_shipping_rate_table" model="ir.ui.view">
+			<field name="name">tree.shipping.rate.card</field>
+			<field name="model">shipping.rate.card</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Rate Card">
+					<field name="name"  select="1"/>
+					<field name="from_date"  select="1" colspan="1"/>
+					<field name="to_date"  select="1" colspan="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Shipping Rate  Card Form View-->
+		<record id="form_view_shipping_rate_table" model="ir.ui.view">
+			<field name="name">form.shipping.rate.card</field>
+			<field name="model">shipping.rate.card</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Rate Card" version="7.0">
+				    <sheet>
+				        <group>
+							<field name="name"  select="1" colspan="2"/>
+							<newline/>
+							<field name="from_date"  select="1" colspan="1"/>
+							<field name="to_date"  select="1" colspan="1"/>
+							<newline/>
+							<separator string="Shipping Rates" colspan="4"/>
+							<field name="rate_ids" select="1" colspan="4" nolabel="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Action Record for Shipping Rate Card-->
+		<record id="action_shipping_rate_table" model="ir.actions.act_window">
+			<field name="name">Shipping Methods</field>
+			<field name="res_model">shipping.rate.card</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_shipping_rate_table"/>
+		</record>
+		<menuitem id="shipping_rate_table" name="Shipping Methods"  parent="negotiated_shipping_config" sequence="65" 
+			action="action_shipping_rate_table" groups="base.group_erp_manager,base.group_sale_manager,base.group_system" />
+
+		<!--SHIPPING RATE CONFIGURATION-->
+		<!-- Shipping Rate Configuration List View-->
+		<record id="tree_view_shipping_rate_config" model="ir.ui.view">
+			<field name="name">tree.shipping.rate.config</field>
+			<field name="model">shipping.rate.config</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Rate Configuration">
+					<field name="shipmethodname"/>
+					<field name="active"  select="1"/>
+					<field name="calc_method"/>
+					<field name="rate_card_id"/>
+					<field name="account_id"  required="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Shipping Rate Configuration Form View-->
+
+		<record id="form_view_shipping_rate_config" model="ir.ui.view">
+			<field name="name">form.shipping.rate.config</field>
+			<field name="model">shipping.rate.config</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Rate Configuration" version="7.0">
+				    <sheet>
+				        <group>
+							<field name="shipmethodname"  select="1"  colspan="2"/>
+							<field name="active"  select="1" colspan="2"/>
+							<field name="calc_method"  select="1" colspan="2"/>
+							<field name="rate_card_id"  select="1" colspan="2"/>
+							<field name="account_id"  select="1" colspan="2" required="1"/>
+							<newline/>
+							<separator string="Shipment Tax" colspan="4"/>
+							<field name="shipment_tax_ids" colspan="4" nolabel="1"/>
+						</group>
+					
+					<newline/>
+					<group height="425" colspan="6" col="6">
+						<field name="zone_map_ids" attrs="{'invisible':[('calc_method','!=','state_zone_weight')]}" nolabel="1">
+							<tree string="Zone Map">
+								<field name="zone"/>
+								<field name="state_id"/>
+							</tree>
+						</field>
+					</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+		<!--Action Record for Shipping Rate Configuration and Menu-->
+
+		<record id="action_shipping_rate_config" model="ir.actions.act_window">
+			<field name="name">Shipping Rate Configuration</field>
+			<field name="res_model">shipping.rate.config</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_shipping_rate_config"/>
+		</record>
+
+		<menuitem id="shipping_rate_config" name="Shipping Rate Configuration"  parent="negotiated_shipping_config" sequence="75" 
+			action="action_shipping_rate_config"  groups="base.group_erp_manager,base.group_sale_manager,base.group_system"/>
+
+	</data>
+</openerp>

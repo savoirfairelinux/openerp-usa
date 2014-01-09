@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_address_list" model="ir.ui.view">
+			<field name="name">Address List</field>
+			<field name="model">response.data.model</field>
+			<field name="arch" type="xml">
+				<tree string="Address List" editable="top">
+					<field name="select" />
+					<field name="street1" />
+					<field name="city" />
+					<field name="state" />
+					<field name="zip" />
+					<field name="classification" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</openerp>

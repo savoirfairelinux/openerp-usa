@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- Currency -->
+
+        <record model="ir.ui.view" id="currency_form_view">
+            <field name="name">Currency Updater form</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//group[@string='Miscellaneous']" position="after" >
+                        <group string="Currency updater">
+                            <field name="update_method" />
+                            <field name="currency_code" attrs="{'readonly':[('update_method','=','manual')]}"/>
+                            <field name="update_time" attrs="{'readonly':[('update_method','=','manual')]}"/>
+                            <field name="update_timezone" attrs="{'readonly':[('update_method','=','manual')]}"/>
+                            <field name="last_update_on" />
+                            <field name="log_buffer" />
+                            <button name="update_rate" type="object" string="Update now" colspan="2" attrs="{'invisible':[('update_method','=','manual')]}" />
+                        </group>
+                    </xpath>
+                    <xpath expr="//field[@name='rate_ids']/tree/field[@name='rate']" position="before" >
+                        <field name="currency_rate_type_id" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="currency_tree_view">
+            <field name="name">Currency Updater tree</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_tree" />
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='position']" position="after" >
+                        <field name="update_method" />
+                        <field name="last_update_on" />
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</openerp>

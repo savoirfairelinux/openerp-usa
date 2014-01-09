@@ -1,0 +1,60 @@
+-
+  I Create a record for shipping rate which calculate the shipping.
+- 
+  !record {model: shipping.rate, id: shipping_rate_testshippingmethod0}:
+    charge: 100.0
+    country_id: base.dz
+    from_weight: 10
+    name: UPS Standard
+    over_cost: 100.0
+    to_weight: 50
+    zone: 1
+- 
+  I create a record for shipping rate card which calculate the ground shipping
+- 
+  !record {model: shipping.rate.card, id: shipping_rate_card_testshippingmethod0}:
+    from_date: '2013-08-28 06:27:02'
+    name: UPS Standard
+    rate_ids:
+      - charge: 100.0
+        country_id: base.dz
+        from_weight: 10
+        name: UPS Standard
+        over_cost: 100.0
+        to_weight: 50
+        zone: 1
+    to_date: '2013-09-09 06:27:08'
+- 
+  I Create a record for shipping rate config which have the configuration data for shipping rate.
+- 
+  !record {model: shipping.rate.config, id: shipping_rate_config_0}:
+    account_id: account.a_recv
+    active: true
+    calc_method: manual
+    rate_card_id: shipping_rate_card_testshippingmethod0
+    real_id: 0.0
+    shipmethodname: UPS Standard
+    shipping_wizard: 0.0
+    zone_map_ids:
+      - state_id: base.state_us_2
+        zone: 123
+- 
+  To mapping zone of the state I create a record having state, zone and shipping rate config
+- 
+  !record {model: zone.map, id: zone_map_0}:
+    rate_config_id: shipping_rate_config_0
+    state_id: base.state_us_2
+    zone: 1
+- 
+  In order to update cost of shipping, I create a record for shipping rate wizard. 
+- 
+  !record {model: shipping.rate.wizard, id: shipping_rate_wizard_0}:
+    shipping_cost: 10.0
+    account_id: account.a_pay
+    rate_select: shipping_rate_config_0
+-
+  I clicked on 'OK' button to update shipping cost.
+-
+  !python {model: shipping.rate.wizard}: |
+    data = self.update_shipping_cost(cr, uid, [ref('shipping_rate_wizard_0')], {"active_model": 'shipping.rate', "active_id": ref('shipping_rate_testshippingmethod0')})
+

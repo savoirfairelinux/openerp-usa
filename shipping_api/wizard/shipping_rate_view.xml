@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Shipping rate wizard -->
+		<record id="view_for_shipping_rate_wizard_shipping" model="ir.ui.view">
+			<field name="name">action_for_shipping_rate_wizard_shipping</field>
+			<field name="model">shipping.rate.wizard</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale_negotiated_shipping.view_for_shipping_rate_wizard" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='rate_select']" position="before" >
+					<field name="rate_selection" invisible="0" />
+					<field name="logis_company" on_change="onchange_logis_company(logis_company)" attrs="{'invisible':[('rate_selection','=','rate_card')]}"/>
+					<field name="ship_company_code" invisible="1" attrs="{'invisible':[('rate_selection','=','rate_card')]}" />
+				</xpath>
+				<xpath expr="//field[@name='rate_select']" position="attributes" >
+					<attribute name="attrs">{'required':[('rate_selection','=','rate_card')], 'invisible':[('rate_selection','=','rate_request')]}</attribute>
+				</xpath>
+				<xpath expr="//field[@name='shipping_cost']" position="after" >
+					<newline />
+					<field name="status_message" colspan="4" attrs="{'invisible': ['|',('status_message','=', False),('rate_selection','=','rate_card')]}" />
+					<button name="get_rate" string="Get Rate" type="object" icon="gtk-execute" attrs="{'invisible':[('rate_selection','=','rate_card')]}" />
+				</xpath>
+				
+			</field>
+		</record>
+		
+	</data>
+</openerp>

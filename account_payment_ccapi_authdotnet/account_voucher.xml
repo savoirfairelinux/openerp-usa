@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_sale_receipt_form_inherit_id" model="ir.ui.view">
+            <field name="name">account.voucher.sale.form.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_sale_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='partner_id']" position="after">
+                	<field name="origin"/>
+				</xpath>
+            </field>
+        </record>
+        
+        <record id="view_voucher_filter_sale_inherit" model="ir.ui.view">
+            <field name="name">account.voucher.sale.select.inherit</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_sale"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                	<field name="origin"/>
+				</xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
+        
+        

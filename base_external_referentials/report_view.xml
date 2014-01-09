@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="external_report_line_search_view" model="ir.ui.view">
+            <field name="name">external_report_line_search_view</field>
+            <field name="model">external.report.line</field>
+            <field name="arch" type="xml">
+                <search string="External Report Lines">
+                   <field name="referential_id"/>
+                   <field name="date"/>
+                   <field name="res_model"/>
+                   <field name="action"/>
+                   <newline/>
+                   <group  expand='0' string='Group by...' groups="base.group_extended">
+                       <filter string='External Referential' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'referential_id'}" />
+                       <filter string='Date' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'date'}" />
+                       <filter string='Model' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'res_model'}" />
+                       <filter string='Action' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'action'}" />
+                   </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- External Report Line -->
+        <record id="external_report_line_form_view" model="ir.ui.view">
+            <field name="name">external_report_line_form_view</field>
+            <field name="model">external.report.line</field>
+            <field name="arch" type="xml">
+                <form string="External Report Line" version="7.0">
+                    <sheet>
+                        <group>
+		                    <field name="referential_id"/>
+		                    <field name="res_model"/>
+		                    <field name="res_id"/>
+		                    <field name="external_id"/>
+		                    <field name="action"/>
+		                    <field name="date"/>
+		                    <separator colspan="4"/>
+		                    <field name="exception_type"/>
+		                    <field name="error_message"/>
+		                    <field name="traceback" colspan="4"/>
+		                    <separator colspan="4"/>
+		                    <button name="retry" string="Retry" icon="gtk-go-forward" type="object" colspan="2"/>
+	                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="external_report_line_tree_view" model="ir.ui.view">
+            <field name="name">external_report_line_tree_view</field>
+            <field name="model">external.report.line</field>
+            <field name="arch" type="xml">
+                <tree string="External Report Lines">
+                    <field name="referential_id"/>
+                    <field name="res_model"/>
+                    <field name="action"/>
+                    <field name="date"/>
+                    <field name="res_id"/>
+                    <field name="external_id"/>
+                    <field name="error_message"/>
+                    <button name="retry" string="Retry" icon="gtk-go-forward" type="object" colspan="2"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</openerp>

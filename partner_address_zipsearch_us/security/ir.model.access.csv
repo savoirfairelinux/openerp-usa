@@ -1,0 +1,6 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"security_address_zip_user","security.address.zip.user","model_address_zip","base.group_sale_salesman",1,1,0,0
+"security_address_zip_manager","security.address.zip.manager","model_address_zip","base.group_erp_manager",1,1,1,1
+"security_address_zip_sale_manager","security.address.zip.sale.manager","model_address_zip","base.group_sale_manager",1,1,1,1
+"security_address_zip_partner_manager","security.address.zip.partner.manager","model_address_zip","base.group_partner_manager",1,1,1,0
+"security_address_zip_system","security.address.zip.system","model_address_zip","base.group_system",1,1,1,1

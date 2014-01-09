@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- View of wizard to print summary report -->
+		<record id="view_print_report" model="ir.ui.view">
+			<field name="name">Print Summary Report</field>
+			<field name="model">ship.summary_report</field>
+			<field name="arch" type="xml">
+				<form string="Print Summary Report" version="7.0" >
+					<group col="4" height="55">
+						<button special="cancel" string="Cancel" icon="gtk-close" />
+						<button name="print_summary_report" string="Print" type="object" icon="gtk-ok"  />
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Print Summary Report"
+		    res_model="ship.summary_report"        
+		    src_model="shipping.move"
+		    view_mode="form"
+		    view_id="view_print_report"
+		    target="new"
+		    id="print_report_act_window"/>
+
+	</data>
+</openerp>

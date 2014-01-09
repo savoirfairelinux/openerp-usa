@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+          <wizard id="assigned_picker_order_id" model="stock.picking"
+          multi="True" name="assigned_picker_order" string="Assigned Picker"/>
+
+           <wizard id="assigned_picker_move_id" model="stock.move"
+          multi="True" name="assigned_picker_order" string="Assigned Picker"/>
+    </data>
+</openerp>

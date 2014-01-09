@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Delivery Orders Form-->
+		<record id="view_picking_out_form_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.out.form.inherit</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="after">
+					<field name="ship_method"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- Tree -->
+		<record id="view_picking_out_tree_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.out.tree.inherit</field>
+			<field name="model">stock.picking.out</field>
+			<field name="inherit_id" ref="stock.view_picking_out_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='backorder_id']" position="before">
+					<field name="ship_method"/>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- Search -->
+		<record id="view_picking_internal_search_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.internal.search.inherit</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_out_search"/>
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@string='Journal']" position="after">
+					<separator orientation="vertical" />
+					<filter string="Shipping Method" icon="terp-product" domain="[]" context="{'group_by':'ship_method'}"  
+							groups="base.group_extended"/>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Deliver Products Tree-->
+		<record id="view_move_tree_reception_picking_inherit" model="ir.ui.view">
+			<field name="name">stock.move.tree2.inherit</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_tree_reception_picking"/>
+			<field name="priority" eval="6" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='date']" position="after">
+					<field name="ship_method"/>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Form -->
+		<record id="view_move_form_inherit" model="ir.ui.view">
+			<field name="name">stock.move.form.inherit</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='tracking_id']" position="after">
+					<group colspan="2" col="2" groups="base.group_extended">
+						<separator string="Shipping" colspan="4" groups="base.group_extended"/>
+						<field name="ship_method" readonly="1"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+		
+		<!-- Search -->
+		<record id="view_move_search_reception_outcoming_picking_inherit" model="ir.ui.view">
+			<field name="name">stock.move.outgoing.search2.inherit1</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_search"/>
+			<field eval="8" name="priority"/>
+			<field name="arch" type="xml">
+				<xpath expr="//filter[@string='Scheduled']" position="after">
+					<separator orientation="vertical" />
+					<filter string="Shipping Method" icon="terp-product" domain="[]" context="{'group_by':'ship_method'}"  
+							groups="base.group_extended"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

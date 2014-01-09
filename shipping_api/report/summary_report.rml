@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="55.0" y1="0.0" width="495" height="786"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Standard_Outline">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table2">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+    </blockTableStyle>
+    <blockTableStyle id="Table4">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="0,0" stop="0,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="0,0" stop="0,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="0,-1" stop="0,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEAFTER" colorName="#000000" start="1,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000" start="1,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000" start="1,-1" stop="1,-1"/>
+    </blockTableStyle>
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <paraStyle name="P1" rightIndent="22.0" leftIndent="20.0" fontName="Helvetica-Bold" fontSize="14.0" leading="17" alignment="CENTER"/>
+    <paraStyle name="P2" rightIndent="22.0" leftIndent="20.0" fontName="Helvetica-Bold" fontSize="15.0" leading="19"/>
+    <paraStyle name="P3" rightIndent="22.0" leftIndent="20.0" fontName="Helvetica" fontSize="11.0" leading="14"/>
+    <paraStyle name="P4" fontName="Helvetica" fontSize="15.0" leading="19"/>
+    <paraStyle name="P5" rightIndent="22.0" leftIndent="0.0" fontName="Helvetica" fontSize="11.0" leading="14"/>
+    <paraStyle name="P6" rightIndent="22.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="11.0" leading="14"/>
+    <paraStyle name="P7" rightIndent="22.0" leftIndent="0.0" fontName="Helvetica-Bold" fontSize="15.0" leading="19"/>
+    <paraStyle name="P8" rightIndent="22.0" leftIndent="0.0" fontName="Helvetica"/>
+    <paraStyle name="Standard" fontName="Helvetica"/>
+    <paraStyle name="Heading" fontName="Helvetica" fontSize="14.0" leading="17" spaceBefore="12.0" spaceAfter="6.0"/>
+    <paraStyle name="Text body" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="List" fontName="Helvetica" spaceBefore="0.0" spaceAfter="6.0"/>
+    <paraStyle name="Caption" fontName="Helvetica" fontSize="12.0" leading="15" spaceBefore="6.0" spaceAfter="6.0"/>
+    <paraStyle name="Index" fontName="Helvetica"/>
+    <paraStyle name="Table Contents" fontName="Helvetica"/>
+    <paraStyle name="Table Heading" fontName="Helvetica" alignment="CENTER"/>
+    <images/>
+  </stylesheet>
+  <story>
+    <para style="P1">Shipping Summary Report</para>
+    <para style="P3">
+      <font color="white"> </font>
+    </para>
+    <para style="P5">
+      <font color="white"> </font>
+    </para>
+    <para style="P6">Date : [[time.strftime("%b %d, %Y")]]</para>
+    <para style="P6">Total number of packages : [[get_total()]]</para>
+    <para style="P7">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="248.0,248.0" style="Table2">
+      <tr>
+        <td>
+          <para style="P2">Shipping Method</para>
+        </td>
+        <td>
+          <para style="P2">Count</para>
+        </td>
+      </tr>
+    </blockTable>
+    <blockTable colWidths="248.0,248.0" style="Table4">
+      <tr>
+        <td>
+          <para style="P4">[[not get_items() and removeParentNode('blockTable')]][[repeatIn(get_items(),'p')]][[ p[0] ]]</para>
+        </td>
+        <td>
+          <para style="P4">[[ p[1] ]]</para>
+        </td>
+      </tr>
+    </blockTable>
+    <para style="P7">
+      <font color="white"> </font>
+    </para>
+    <para style="P8">
+      <font color="white"> </font>
+    </para>
+  </story>
+</document>
+

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="external_referential_form_view" model="ir.ui.view">
+			<field name="name">external_referential_form_view</field>
+			<field name="model">external.referential</field>
+			<field name="arch" type="xml">
+				<form string="External Referential" version="7.0">
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name" attrs="{'readonly':[('create_date','!=',False)]}"/>
+							<field name="create_date" invisible="True"/>
+							<notebook colspan="4">
+								<page string="General">
+									<group>
+										<field name="type_id" />
+										<field name="location" />
+									</group>
+								</page>
+								<page string="Authentication">
+									<group>
+										<field name="apiusername" />
+										<field name="apipass" />
+									</group>
+								</page>
+							</notebook>
+						</group>
+					    <group col="4" colspan="4">
+					        <separator string="Core Components" colspan="4" />
+					        <notebook colspan="4">
+					        	<page string="Referential Actions">
+					        	    <separator string="Compulsory" colspan="4" />
+					                <button name="refresh_mapping" string="1 - Reload Referential Mapping Templates" colspan="2" type="object" />
+	            					<button name="core_sync" string="2 - Synchronize Referential Settings" colspan="2" type="object" attrs="{'readonly':[('mapping_ids','=',[])]}"/>
+	            				</page>
+	            			</notebook>
+	            		</group>
+						<field name="mapping_ids" widget="one2many_list" nolabel="1">
+							<tree string="Object Mappings">
+								<field name="model_id" />
+	<!--							<field name="related_model_ids" invisible="1" />-->
+	<!--							<field name="mapping_ids" />-->
+							</tree>
+							<form string="Object Mappings">
+								<field name="model_id" on_change="model_id_change(model_id)" />
+								<field name="related_model_ids" invisible="1" />
+								<group col="4" colspan="4">
+									<field name="external_list_method" />
+									<field name="external_get_method" />
+									<field name="external_update_method" />
+									<field name="external_create_method" />
+									<field name="external_delete_method" />
+									<field name="external_key_name" />
+								</group>
+								<field colspan="4" name="mapping_ids" widget="one2many_list" nolabel="1" context="{'model_id':model_id}">
+									<tree string="Field Mappings">
+										<field name="field_id" />
+										<field name="external_field" />
+										<field name="type" />
+										<field name="external_type" />
+									</tree>
+									<form string="Field Mapping">
+										<field name="field_id" domain="[('model_id','=',parent.model_id)]" />
+										<field name="external_field" />
+										<field name="type" />
+	                                    <field name="evaluation_type" />
+										<field name="external_type" />
+	                                    <field name="child_mapping_id" colspan="4" attrs="{'invisible':[('evaluation_type','!=','sub-mapping')]}"/>
+	                                    <group string="function" attrs="{'invisible':[('evaluation_type','!=','function')]}" colspan="4">
+										    <newline />
+										    <field name="in_function" colspan="4"/>
+										    <newline />
+										    <field name="out_function" colspan="4"/>
+	                                    </group>
+									</form>
+								</field>
+							</form>
+						</field>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="external_referential_tree_view" model="ir.ui.view">
+			<field name="name">external_referential_tree_view</field>
+			<field name="model">external.referential</field>
+			<field name="arch" type="xml">
+				<tree string="External Referential">
+					<field name="name" select="1" />
+					<field name="location" select="1" />
+				</tree>
+			</field>
+		</record>
+
+
+	</data>
+</openerp>

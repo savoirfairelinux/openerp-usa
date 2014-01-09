@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!--Form view for Ups Stock Package-->
+		<record id="stock_packages_form_ups" model="ir.ui.view">
+			<field name="name">stock.packages.form.ups</field>
+			<field name="model">stock.packages</field>
+			<field name="inherit_id" ref="shipping_api.stock_packages_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='logo']" position="after">
+					<group colspan="2" col="4" attrs="{'invisible':[('control_log_receipt','=',False)]}">
+						<field name="control_log_receipt"  readonly="1"/>
+						<button string="Control Log Receipt" name="print_control_receipt_log" type="object" help=''/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="stock_packages_tree_ups" model="ir.ui.view">
+			<field name="name">stock.packages.tree.ups</field>
+			<field name="model">stock.packages</field>
+			<field name="inherit_id" ref="shipping_api.stock_packages_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='print_label']" position="after">
+					<button string="Control Log Receipt" name="print_control_receipt_log" icon='STOCK_JUSTIFY_FILL' type="object" />
+				</xpath>
+				<xpath expr="//field[@name='decl_val']" position="after">
+					<field name='highvalue' invisible="1"/>
+					<field name='att_file_name' invisible='1'/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

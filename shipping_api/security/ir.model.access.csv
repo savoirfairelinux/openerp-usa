@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+security_logis_company_user,security.logistic.company.user,model_logistic_company,base.group_sale_salesman,1,1,1,0
+security_logis_company_manager,security.logistic.company.manager,model_logistic_company,base.group_erp_manager,1,1,1,1
+security_shipping_move_user,security.shipping.move.user,model_shipping_move,base.group_sale_salesman,1,1,1,0
+security_shipping_move_manager,security.shipping.move.manager,model_shipping_move,base.group_erp_manager,1,1,1,1
+security_stock_packages_user,security.stock.packages.user,model_stock_packages,base.group_sale_salesman,1,1,1,0
+security_stock_packages_manager,security.stock.packages.manager,model_stock_packages,base.group_erp_manager,1,1,1,1
+security_logistic_company_service_type,security.logistic.company.service.type,model_logistic_company_service_type,base.group_erp_manager,1,1,1,1
+security_logistic_company_package_type,security.logistic.company.package.type,model_logistic_company_package_type,base.group_erp_manager,1,1,1,1

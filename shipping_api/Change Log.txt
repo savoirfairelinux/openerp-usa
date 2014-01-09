@@ -1,0 +1,154 @@
+===============================================================================
+ Version Change Log (shipping_api)
+===============================================================================
+2.5 2013-11-11 By Dhwani
+	* Improved the view of purchase order by set the 'Destination Warehouse' field as default field.
+
+2.4 2013-11-11 By Dhwani
+	* Improved the view of purchase order.
+
+2.3 2013-10-22 By Serpent Consulting Services Pvt. Ltd.
+	* Improved the layout of Logistic company
+	
+2.2 2013-09-27 By Serpent Consulting Services Pvt. Ltd.
+	* Fixed an error on confirmation of PO
+
+2.1 2013-09-26 By Serpent Consulting Services Pvt. Ltd.
+	* Added multiComapnay rule for Logistic company
+
+2.0 2013-09-10 by Serpent Consulting Services Pvt. Ltd.
+	* Migration to Version 7
+
+1.41 2012-10-25 By Rima
+	* Removed the package field from the default view on picking as
+	otherwise it required user to fill package information while receiving incoming shipment in RMA
+
+1.40 2012-10-19 By Rima
+	* Made the tree view of Stock moves in the Outgoing Picking as editable
+
+1.39 2012-10-18 By Rima
+	* Added ship charge field on delivery order
+
+1.38 2012-10-17 By Rima
+	* Moved the package type definition from shipping_api_ups to this module
+
+1.37 2012-09-23 By Jay
+	* Made the package field of move mandatory from view definition
+
+1.36 2012-09-11 By Rima
+	* Improved the calculation of the value of the package
+
+1.35 2012-09-09 By Rima
+	* Fixed the calculation of the value of the package
+
+1.34 2012-09-06 By Rima
+	* Added the reference in the label
+	* Removed the reference codes from the packages view for simplicity
+	* Fixed the packages view
+
+1.33 2012-08-24 By Rima
+	* Improved the calculation of the value of the package
+
+1.32 2012-08-06 By Rima
+	* Fixed the ir.model.access.csv
+
+1.31 2012-08-03 By Rima
+	* Simplified the packaging ability
+	* Removed the packaging items and added stock moves in its place
+
+1.30 2012-07-26 By Jay
+	* Fix & improvements in packing slip report
+
+1.29 2012-07-12 By Janeesh
+    * View attributes modifications for Print Label button
+    * New button Print Packing Slip
+    * Merging of highvalue shipment  module
+
+1.28 2012-07-02 By Rima
+    * Updated the view
+
+1.27 2012-06-28 By Janeesh
+    * Added Shipping tab in Delivery Order in the view of picking in Sale Order History tab
+
+1.26 2012-06-06 By Janeesh
+    * Modification in calculate shipping
+
+1.25 2012-03-20 By sinoj
+	* Code cleanup
+
+1.24 2012-01-23 by Arif
+	* For delivery mail, included the attachment from template report
+
+1.23 2012-01-20 by Janeesh
+	* Error fix with Delivery Order confirmation mail
+
+1.22 2012-01-19 by Janeesh
+	* Changed priority of inherited partner view to fix conflict with base_contact module
+
+1.21 2012-01-16 by Vinod
+	* Changed the decimal precision of tot_ship_weight to 3.
+
+1.20 2011-12-29 by Arif
+	* Moved bill_shipping from the view to ups module
+
+1.19 2011-12-29 by Arif
+	* Ship informations from sales order to delivery order
+
+1.18 2011-12-22 by Arif
+	* Ship rate request and processing
+	* Modifications on wizard for Calculate shipping charge
+
+1.17 2011-11-23 by Janeesh
+	* Fixed webclient error with on_change in shipping packages
+
+1.16 2011-11-15 by Arif
+	* UPS and Fedex accounts from the partner_address_validation
+
+	Important : If you are updating these modules on an existing database in which the shipping configurations are already made, then from the Logistic Company the UPS / FedEx account should be selected.
+
+1.15 2011-11-10 by Arif
+	* Removed the menu Account shipping in administration menu
+
+1.14 (2011-10-03) By Arif
+	* Modifications required for Fedex.
+
+1.13 (2011-09-23) By Arif
+	* Icons to buttons in shipping tab of delivery order
+
+1.12 (2011-07-18) By Jabir
+	* Added required attributes to the fields according to report selection
+
+1.12 (2011-07-13) By Jabir
+	* Modification on do_partial function to remove the confilict with module mrp_disassemble
+
+1.11 (2011-07-04) By Jabir
+	* Fields added for Canada shipping documents
+
+1.09 -> 1.10 (2011-06-28) By Jabir
+	* Displayed the processed delivery order on partial delivery order processing
+
+1.08 -> 1.09 (2011-06-21) By Jabir
+	* Took total weight from the movelines on delivey order instead of taking it from sale order
+
+1.07 -> 1.08 (2011-06-10) By Jabir
+	* Created security rules for models
+1.06 -> 1.07 (2011-04-22) By Jabir
+	* Created the Distribute Weight button on delivery order to distribute the weight to all shipping packages
+
+1.05 -> 1.06 (2011-04-18) By Jabir
+	* Changed the label delivered to shipped
+
+1.04 -> 1.05 (2011-04-12) By Jabir
+	* Updated package weight
+
+1.03 -> 1.04 (2011-04-01) By Jabir
+	* Updated the shipping status of delivery on delivery order
+
+1.02 -> 1.03 (2011-02-04) By Sinoj
+	* modified _get_account_analytic_invoice on stock.py to work even if the account_analytic_default is not installed
+
+1.0 -> 1.01 (2011-02-04) By Jabir
+	Removed all ups labels from label and code
+
+1.01 -> 1.02 (2011-02-04) By Kiran
+	Added file sale.py

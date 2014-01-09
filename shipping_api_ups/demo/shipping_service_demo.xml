@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="service1" model="ups.shipping.service.type">
+          <field name="description">UPS Standard</field>
+          <field name="shipping_service_code">11</field>
+        </record>
+        
+        <record id="service2" model="ups.shipping.service.type">
+          <field name="description">UPS Ground</field>
+          <field name="shipping_service_code">03</field>
+        </record>
+        
+        <record id="service3" model="ups.shipping.service.type">
+          <field name="description">UPS 3 Day Select</field>
+          <field name="shipping_service_code">12</field>
+        </record>
+        
+        <record id="service4" model="ups.shipping.service.type">
+          <field name="description">UPS 2nd Day Air</field>
+          <field name="shipping_service_code">02</field>
+        </record>
+        
+        <record id="service5" model="ups.shipping.service.type">
+          <field name="description">UPS 2nd Day Air AM</field>
+          <field name="shipping_service_code">59</field>
+        </record>
+        
+        <record id="service6" model="ups.shipping.service.type">
+          <field name="description">UPS Next Day Air Saver</field>
+          <field name="shipping_service_code">13</field>
+        </record>
+        
+        <record id="service7" model="ups.shipping.service.type">
+          <field name="description">UPS Next Day Air</field>
+          <field name="shipping_service_code">01</field>
+        </record>
+        
+        <record id="service8" model="ups.shipping.service.type">
+          <field name="description">UPS Next Day Air Early A.M.</field>
+          <field name="shipping_service_code">14</field>
+        </record>
+        
+        <record id="service9" model="ups.shipping.service.type">
+          <field name="description">UPS Worldwide Express</field>
+          <field name="shipping_service_code">07</field>
+        </record>
+        
+        <record id="service10" model="ups.shipping.service.type">
+          <field name="description">UPS Worldwide Express Plus</field>
+          <field name="shipping_service_code">54</field>
+        </record>
+        
+        <record id="service11" model="ups.shipping.service.type">
+          <field name="description">UPS Worldwide Expedited</field>
+          <field name="shipping_service_code">08</field>
+        </record>
+        
+        <record id="service12" model="ups.shipping.service.type">
+          <field name="description">UPS World Wide Saver</field>
+          <field name="shipping_service_code">65</field>
+        </record>
+        
+    </data>
+ </openerp>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    	<report id="ship_label_print"
+	            string="Print Label"
+	            model="stock.packages"
+	            name="ship.label.print"
+	            rml="addons/shipping_api/report/label_print.rml"
+	            menu="False"
+	            auto="False"/>
+	            
+	    <report id="ship_log_label_print"
+	            string="Print Label"
+	            model="shipping.move"
+	            name="ship.log.label.print"
+	            rml="addons/shipping_api/report/label_print.rml"
+	            menu="False"
+	            auto="False"/>
+	            
+		<report id="quick_ship_label_print"
+        		string="Print Label"
+            	model="quick.ship"
+            	name="quick.ship.label.print"
+            	rml="addons/shipping_api/report/label_print.rml"
+            	menu="False"
+            	auto="False"/>
+            
+       	<report id="multiple_label_print"
+            	string="Print Label"
+            	model="stock.picking"
+            	name="multiple.label.print"
+            	rml="addons/shipping_api/report/multiple_label_print.rml"
+            	menu="False"
+            	auto="False"/>
+           
+		<report id="summary_report_print"
+		    	string="Summary Report"
+		    	model="shipping.move"
+		    	name="summary_report_print"
+		    	rml="addons/shipping_api/report/summary_report.rml"
+		    	auto="False"
+		    	header="False"
+		    	menu="True"/>
+
+     </data>
+</openerp>

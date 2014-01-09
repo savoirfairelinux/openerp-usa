@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- Delivery Order Form View -->
+	 	<record id="view_picking_shipping_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.shipping.inherit.out</field>
+			<field name="model">stock.picking.out</field>
+			<field name="inherit_id" ref="stock.view_picking_out_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="replace">
+					<field name="partner_id" on_change="onchange_partner_in(partner_id)" context="{'contact_display':'partner'}" colspan="2"/>
+				</xpath>
+				<xpath expr="//page[@string='Additional Info']" position="after">
+					<page string="Shipping" attrs="{'invisible': [('state','in',['draft', 'cancel'])]}">
+<!-- 					    attrs="{'invisible': [('state','=','draft')]}" -->
+						<group colspan="1" col="8">
+							<field name="logis_company" on_change="onchange_logis_company(logis_company)"  />
+							<field name="ship_company_code"/>
+						</group>
+						<newline/>
+						<notebook>
+							<page string="Shipment">
+							  <group colspan="4" col="6">
+							    <group colspan="1" col="4">
+									<field name='address_validate'/>
+									<field name='tot_ship_weight' />
+									<field name='tot_del_order_weight' readonly="1" />
+									<field name='shipcharge'/>
+									<field name='ship_from' />
+								</group>
+								
+								<newline />
+								<group colspan="4" col="6" attrs="{'invisible':[('ship_from','=',False)]}">
+									<field name='ship_from_tax_id_no' />
+									<field name='ship_from_address' />
+								</group>
+								
+								<newline />
+							    <group  colspan="1" col="8">
+									<field name='freight' string="Freight" />
+									<field name='sat_delivery' />
+									<field name='with_ret_service' />
+									
+								</group>
+								
+							  </group>
+							</page>
+							<page string="Documents">
+								<group colspan="4" col="8" invisible="0">
+									<field name='comm_inv' />
+									<field name='cer_orig' />
+									<field name='nafta_cer_orig' />
+								</group>
+							</page>
+
+						<page string="Producer Details" attrs="{'invisible':[('nafta_cer_orig','=',False)]}" >
+						<group colspan="4" col="4" attrs="{'invisible':[('nafta_cer_orig','=',False)]}">
+							<field name='prod_option' attrs="{'required':[('nafta_cer_orig','=',True),('prod_company','=',False)]}"/>
+							<field name='prod_company' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+							<field name='prod_tax_id_no' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+							<field name='prod_address_id' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+						</group>
+						</page>
+						<page string="Sold To Details" attrs="{'invisible':[('comm_inv','=',False),('nafta_cer_orig','=',False)]}" >
+						<group colspan="4" col="4" attrs="{'invisible':[('comm_inv','=',False),('nafta_cer_orig','=',False)]}">
+							<field name='inv_option' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),
+  							('inv_att_name','=',False),
+ 							('inv_company','=',False), 
+ 							('inv_tax_id_no','=',False), 
+ 							('inv_address_id','=',False)]}"/>
+							<field name='inv_att_name' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='comm_code' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True)]}"/>
+							<newline />
+							<field name='inv_company' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='inv_tax_id_no' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='inv_address_id' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='exp_carrier' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True)]}" />
+						</group>
+						</page>
+						<page string="BlanketPeriod" attrs="{'invisible':[('nafta_cer_orig','=',False)]}" >
+						<group colspan="1" col="8" attrs="{'invisible':[('nafta_cer_orig','=',False)]}">
+							<field name='blanket_begin_date' attrs="{'required':[('nafta_cer_orig','=',True)]}"/>
+							<field name='blanket_end_date'  attrs="{'required':[('nafta_cer_orig','=',True)]}"/>
+						</group>
+						</page>
+						<page string="Packages">
+						<group colspan="8" col="8">
+							<field name='packages_ids' nolabel="1" colspan="2" height="50" context="{'default_weight':False,'default_packge_no':False,'ssss':active_id}"/>
+						</group>
+						</page>
+						</notebook>
+						<newline/>
+						<group colspan="2" col="8">
+							<field name='ship_state' />
+							<button string="Distribute Weight" type="object" name="distribute_weight"  icon="gtk-edit"
+								attrs="{'invisible':['|',('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered']),('state','!=','done')]}"  colspan="1"/>
+							<button string="Process Shipment"
+								help='This communicates with the Logistics company (e.g. UPS) and returns shipping information and labels.'
+								type="object" name="process_ship"  icon="gtk-execute"
+								attrs="{'invisible':[('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered'])]}"  colspan="1"/>
+
+							<button attrs="{'invisible': [('ship_state', 'in', ['read_pick','shipped','delivered', 'draft', 'cancelled'])]}" string="Print Labels" type="object" name="print_labels" icon="gtk-print" colspan="1"/>
+
+							<button attrs="{'invisible': [('ship_state', 'in', ['read_pick','shipped','delivered', 'draft', 'cancelled'])]}"
+									string="Print Packing Slips" type="object" name="print_packing_slips" icon="gtk-print" colspan="1"/>
+
+							<button  icon="gtk-cancel" string="Cancel" help='This communicates with the Logistics company (e.g. UPS) and performs the void operations.' type="object" name="process_void" attrs="{'invisible':[('ship_state','not in',['ready_pick','in_process'])]}" confirm="Are you sure you want to cancel this shipment?"/>
+
+							<button string="Cancel" type="Cancel" name="cancel_ship" icon="gtk-cancel"
+								attrs="{'invisible':[('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered'])]}" colspan="1"/>
+						</group>
+						<newline/>
+						<group colspan="2" col="8">
+							<field name='ship_message' nolabel="1" readonly="1" height="50"/>
+							<newline />
+							<separator string="Trade Mark" colspan="8" />
+							<newline />
+							<field name='trade_mark' colspan="8" nolabel="1" readonly="1"/>
+						</group>
+						</page>
+				</xpath>
+			</field>
+		</record>  
+
+     	<record id="view_stock_move_shipping_inherit" model="ir.ui.view">
+			<field name='name'>stock.move.shipping.inherit</field>
+			<field name="model">stock.move</field>
+			<field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//form/sheet/group/group/div[@groups='stock.group_production_lot']" position="after">
+						<field name="sale_line_id" invisible="1"/>
+						<field name="package_id" class="oe_inline"  on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos, location_id, sale_line_id)"/> 
+						<field name="cost" invisible="1"/>
+				</xpath>
+	    	 <xpath expr="//form/sheet/group/group/div/field[@name='product_qty']" position="attributes">
+                     <attribute name="on_change">onchange_quantity(product_id, product_qty, product_uom, product_uos, location_id,sale_line_id)</attribute>  
+            </xpath>
+            <xpath expr="//form/sheet/group/group/field[@name='product_id']" position="attributes">
+                     <attribute name="context">{'move_type':parent.get('type','package'), 'move_ids':parent.id}</attribute>  
+            </xpath>
+           </field>
+		</record>
+
+		<record id="view_picking_shipping_sale_inherit" model="ir.ui.view">
+			<field name="name">stock.picking.shipping.inherit.internal</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="replace">
+					<field name="partner_id" on_change="onchange_partner_in(partner_id)" context="{'contact_display':'partner'}" colspan="2"/>
+				</xpath>
+				<xpath expr="//page[@string='Additional Info']" position="after">
+					<page string="Shipping" attrs="{'invisible': [('state','!=','done')]}">
+						  <group colspan="1" col="8">
+							<field name="logis_company" on_change="onchange_logis_company(logis_company)"/>
+							<field name="ship_company_code" invisible="1"  />
+						</group>
+						<newline />
+						<notebook>
+						<page string="Shipment">
+						  <group colspan="4" col="6">
+								<group colspan="4" col="8">
+									<field name='freight' string="Freight" />
+									<field name='sat_delivery' />
+									<field name='address_validate' />
+								</group>
+								<newline />
+								<group colspan="4" col="8" name="service">
+									<field name='with_ret_service' />
+									<field name='tot_ship_weight' />
+									<field name='tot_del_order_weight' readonly="1" />
+								</group>
+								<newline />
+								<group>
+								<field name='ship_from' />
+								<group attrs="{'invisible':[('ship_from','=',False)]}">
+								<field name='ship_from_tax_id_no' />
+								<field name='ship_from_address' />
+								</group>
+								</group>
+							   </group>	 
+							</page>
+							<page string="Documents">
+								<group colspan="4" col="8" invisible="0">
+									<field name='comm_inv' />
+									<field name='cer_orig' />
+									<field name='nafta_cer_orig' />
+								</group>
+							</page>
+
+						<page string="Producer Details" attrs="{'invisible':[('nafta_cer_orig','=',False)]}" >
+						<group colspan="4" col="4" attrs="{'invisible':[('nafta_cer_orig','=',False)]}">
+							<field name='prod_option' attrs="{'required':[('nafta_cer_orig','=',True),('prod_company','=',False)]}"/>
+							<field name='prod_company' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+							<field name='prod_tax_id_no' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+							<field name='prod_address_id' attrs="{'required':[('nafta_cer_orig','=',True),('prod_option','=',False)]}"/>
+						</group>
+						</page>
+						<page string="Sold To Details" attrs="{'invisible':[('comm_inv','=',False),('nafta_cer_orig','=',False)]}" >
+						<group colspan="4" col="4" attrs="{'invisible':[('comm_inv','=',False),('nafta_cer_orig','=',False)]}">
+							<field name='inv_option' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),
+							('inv_att_name','=',False),
+							('inv_company','=',False),
+							('inv_tax_id_no','=',False),
+							('inv_address_id','=',False)]}"/>
+							<field name='inv_att_name' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='comm_code' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True)]}"/>
+							<newline />
+							<field name='inv_company' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='inv_tax_id_no' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='inv_address_id' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True),('inv_option','=',False)]}"/>
+							<field name='exp_carrier' attrs="{'required':['|', ('comm_inv','=',True),('nafta_cer_orig','=',True)]}" />
+						</group>
+						</page>
+						<page string="BlanketPeriod" attrs="{'invisible':[('nafta_cer_orig','=',False)]}" >
+						<group colspan="1" col="8" attrs="{'invisible':[('nafta_cer_orig','=',False)]}">
+							<field name='blanket_begin_date' attrs="{'required':[('nafta_cer_orig','=',True)]}"/>
+							<field name='blanket_end_date'  attrs="{'required':[('nafta_cer_orig','=',True)]}"/>
+						</group>
+						</page>
+						<page string="Packages">
+						<group colspan="8" col="8">
+							<field name='packages_ids' nolabel="1" colspan="8" height="150" context="{'default_weight':False}" />
+						</group>
+						</page>
+						</notebook>
+						<newline/>
+						<group colspan="2" col="8">
+							<field name='ship_state' />
+							<button string="Distribute Weight" type="object" name="distribute_weight"  icon="gtk-edit"
+								attrs="{'invisible':['|',('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered']),('state','!=','done')]}"  colspan="1"/>
+							<button string="Process Shipment"
+								help='This communicates with the Logistics company (e.g. UPS) and returns shipping information and labels.'
+								type="object" name="process_ship"  icon="gtk-execute"
+								attrs="{'invisible':[('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered'])]}"  colspan="1"/>
+
+							<button attrs="{'invisible': [('ship_state', 'in', ['read_pick','shipped','delivered', 'draft', 'cancelled'])]}" string="Print Labels" type="object" name="print_labels" icon="gtk-print" colspan="1"/>
+
+							<button attrs="{'invisible': [('ship_state', 'in', ['read_pick','shipped','delivered', 'draft', 'cancelled'])]}"
+									string="Print Packing Slips" type="object" name="print_packing_slips" icon="gtk-print" colspan="1"/>
+
+							<button  icon="gtk-cancel" string="Cancel" help='This communicates with the Logistics company (e.g. UPS) and performs the void operations.' type="object" name="process_void" attrs="{'invisible':[('ship_state','not in',['ready_pick','in_process'])]}" confirm="Are you sure you want to cancel this shipment?"/>
+
+							<button string="Cancel" type="object" name="cancel_ship" icon="gtk-cancel"
+								attrs="{'invisible':[('ship_state','in',['ready_pick','in_process','cancelled','shipped','delivered'])]}" colspan="1"/>
+						</group>
+						<newline/>
+						<group colspan="2" col="8">
+							<field name='ship_message' nolabel="1" readonly="1" height="50"/>
+							<newline />
+							<separator string="Trade Mark" colspan="8" />
+							<newline />
+							<field name='trade_mark' colspan="8" nolabel="1" readonly="1"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+		</record> 
+
+	</data>
+</openerp>

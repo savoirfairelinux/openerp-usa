@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<!-- USPS Account -->
+		<record id="form_view_for_usps_account" model="ir.ui.view">
+			<field name="name">form.view.for.usps</field>
+			<field name="model">usps.account</field>
+			<field name="arch" type="xml">
+				<form string="usps">
+					<field name="name" required="1" />
+					<field name="test_mode"/>
+					<field name="usps_userid" required="1"/>
+					<field name="usps_url_test" />
+					<field name="usps_url" />
+				</form>
+			</field>
+		</record>
+	
+		<record id="tree_view_for_usps_account" model="ir.ui.view">
+			<field name="name">tree.view.for.usps</field>
+			<field name="model">usps.account</field>
+			<field name="arch" type="xml">
+				<tree string="usps">
+					<field name="name" />
+					<field name="usps_userid" required="1"/>
+					<field name="usps_url_test" />
+					<field name="usps_url" />
+					<field name="test_mode"/>
+				</tree>
+			</field>
+		</record>
+	
+		<record id="action_for_usps_account_menu" model="ir.actions.act_window">
+			<field name="name">USPS Account</field>
+			<field name="res_model">usps.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_usps_account"/>
+		</record>
+	
+		<menuitem id="usps_account_menu"
+					name="USPS Account" 
+			 		parent="address_validation_main"
+					action="action_for_usps_account_menu" />
+
+	</data>
+</openerp>
+

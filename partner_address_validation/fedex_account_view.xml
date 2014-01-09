@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<!-- FedEx Account -->
+		<record id="form_view_for_fedex_account" model="ir.ui.view">
+			<field name="name">form.view.for.fedex</field>
+			<field name="model">fedex.account</field>
+			<field name="arch" type="xml">
+				<form string='Fedex'>
+					<field name="name" required="1" />
+					<field name="test_mode"/>
+					<field name="fedex_key" required="1"/>
+					<field name="fedex_password" required="1" password="True"/>
+					<field name="fedex_account_number" required="1"/>
+					<field name="fedex_meter_number" required="1"/>
+				</form>
+			</field>
+		</record>
+	
+		<record id="tree_view_for_fedex_account" model="ir.ui.view">
+			<field name="name">tree.view.for.fedex</field>
+			<field name="model">fedex.account</field>
+			<field name="arch" type="xml">
+				<tree string='Fedex'>
+					<field name="name" />
+					<field name="fedex_key"/>
+					<field name="fedex_password"/>
+					<field name="fedex_account_number"/>
+					<field name="fedex_meter_number"/>
+					<field name="test_mode"/>
+				</tree>
+			</field>
+		</record>
+	
+		<record id="action_for_fedex_account_menu" model="ir.actions.act_window">
+			<field name="name">FedEx Account</field>
+			<field name="res_model">fedex.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="tree_view_for_fedex_account"/>
+		</record>
+	
+		<menuitem id="address_validation_main" name='Address Validation Method' parent="base.menu_administration" />
+		<menuitem id="fedex_account_menu"
+			name="FedEx Account" 
+			parent="address_validation_main"
+			action="action_for_fedex_account_menu" />
+	</data>
+</openerp>
+

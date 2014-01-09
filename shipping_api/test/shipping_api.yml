@@ -1,0 +1,217 @@
+-
+  In order to check shpping api, I create email template, logistic company and modify the sale order.
+- 
+  I create a record for email template.
+- 
+  !record {model: email.template, id: email_template_invoicesendbyemail0}:
+    email_from: ${object.user_id.email or object.company_id.email or 'noreply@localhost'}
+    email_recipients: ${object.partner_id.id}
+    lang: ${object.partner_id.lang}
+    model: account.invoice
+    model_id: account.model_account_invoice
+    name: Invoice - Send by Email
+    report_name: Invoice_${(object.number or ').replace('/','_')}_${object.state == 'draft'
+      and 'draft' or '}
+    report_template: account.account_invoices
+    ship_mail: true
+    subject: ${object.company_id.name} Invoice (Ref ${object.number or 'n/a'})
+- 
+  I create record for logistic company having company's logistical details.
+- 
+  !record {model: logistic.company, id: logistic_company_1}:
+    company_id: base.main_company
+    name: Serpent
+    ship_account_id: account.a_recv
+    test_mode: true
+    url: www.serpentcs.com
+-
+  I create a record for logistic company's service type having service name and code.
+-
+  !record {model: logistic.company.service.type, id: logistic_company_service_type_1}:
+    name: Test service name
+    code: 01
+    logistic_company_id: logistic_company_1
+-
+  I create a record for company's package type having package name, code.
+-
+  !record {model: logistic.company.package.type, id: logistic_company_package_type_1}:
+    name: Test package name
+    code: ex002
+    logistic_company_id: logistic_company_1
+-
+  I create a partner's company record having logistic company details.
+- 
+  !record {model: res.company, id: base.main_company}:
+    currency_id: base.EUR
+    name: Your Company
+    paper_format: us_letter
+    partner_id: base.main_partner
+    schedule_range: 80.0
+    security_lead: 0.0
+    rate_selection: 'rate_request'
+    logistic_company_ids:
+     - company_id: base.main_company
+       name: SerpentCS
+       ship_account_id: account.a_recv
+       test_mode: true
+       url: www.serpentcs.com
+-
+  I create a record for type of shipping package.
+-
+  !record {model: shipping.package.type, id: shipping_package_type_1}:
+    name: Customer Supplied Package
+    code: 002
+-
+  I Create a record for stock picking having packages and logistic company details.
+- 
+  !record {model: stock.picking, id: stock_picking_int0}:
+    company_id: base.main_company
+    date: '2013-08-30 09:08:09'
+    date_done: '2013-08-30 09:09:16'
+    max_date: '2013-08-30 09:08:50'
+    min_date: '2013-08-30 09:08:50'
+    package_type: '01'
+    move_lines:
+      - company_id: base.main_company
+        cost: 885.0
+        date: '2013-08-30 09:08:50'
+        date_expected: '2013-08-30 09:08:50'
+        location_dest_id: stock.stock_location_stock
+        location_id: stock.stock_location_stock
+        name: '[CARD] Graphics Card'
+        origin: PO001
+        price_unit: 0.0
+        product_id: product.product_product_24
+        product_qty: 1.0
+        product_uom: product.product_uom_unit
+        product_uos_qty: 1.0
+    move_type: direct
+    name: INT/00003
+    origin: PO001
+    partner_id: base.res_partner_2
+    stock_journal_id: stock.journal_delivery
+    tot_ship_weight: 0.0
+    type: internal
+    logis_company: logistic_company_1
+    freight: True
+-
+  I create a stock packages record
+-
+  !record {model: stock.packages, id: stock_packages_1}:
+    packge_no: PN001
+    weight: 5.0
+    package_type: shipping_package_type_1
+    length: 4.0
+    width: 4.0
+    height: 4.0
+    ref1: 'AJ'
+    ref2: Reference number 001
+    ref2_code: 'AT'
+    pick_id: stock_picking_int0
+    negotiated_rates: 100.00
+    shipment_identific_no: SNO001
+    tracking_no: x0001e98
+    package_type_id: logistic_company_package_type_1
+-
+  I clicked on 'Print Label' button to print the label.
+-
+  !python {model: stock.packages}: |
+    data = self.print_label(cr, uid, [ref('stock_packages_1')])
+-
+  I clicked on 'Print Picking Slip' to print the picking slip of the partner.
+-
+  !python {model: stock.packages}: |
+    data = self.print_packing_slips(cr, uid, [ref('stock_packages_1')])
+-
+  I clicked on 'Cancel' button to cancle the shipment.
+-
+  !python {model: stock.picking}: |
+    data = self.cancel_ship(cr, uid, [ref('stock_picking_int0')])
+-
+  I create a new Delivery Order.
+-
+  !record {model: stock.picking.out, id: stock_picking_out_out19}:
+    company_id: base.main_company
+    date: '2013-08-26 15:30:00'
+    min_date: '2013-09-02 15:30:00'
+    move_lines:
+      - company_id: base.main_company
+        create_date: '2013-08-26 11:27:22'
+        date_expected: '2013-09-02 15:30:00'
+        location_dest_id: stock.stock_location_customers
+        location_id: stock.stock_location_stock
+        name: '[CARD] Graphics Card'
+        origin: SO026
+        partner_id: base.res_partner_2
+        procurements:
+          - company_id: base.main_company
+            date_planned: '2013-09-02 15:30:00'
+            location_id: stock.stock_location_stock
+            name: '[CARD] Graphics Card'
+            note: '[CARD] Graphics Card'
+            origin: SO026
+            priority: '1'
+            procure_method: make_to_stock
+            product_id: product.product_product_24
+            product_qty: 1.0
+            product_uom: product.product_uom_unit
+            product_uos: product.product_uom_unit
+            product_uos_qty: 1.0
+            state: confirmed
+        product_id: product.product_product_24
+        product_qty: 1.0
+        product_uom: product.product_uom_unit
+        product_uos: product.product_uom_unit
+        product_uos_qty: 1.0
+        state: done
+    move_type: one
+    name: OUT/00120
+    origin: SO026
+    state: draft
+    partner_id: base.res_partner_2
+    stock_journal_id: stock.journal_delivery
+    type: out
+    logis_company: shipping_api.logistic_company_1
+    bill_shipping: shipper
+    comm_inv: True
+    comm_code: 004
+    inv_option: '02'
+    exp_carrier: post
+    ship_state: draft
+- 
+  I create a shipping rate wizard record by clicking on 'Calculate Shipping' button.
+- 
+  !record {model: shipping.rate.wizard, id: shipping_rate_wizard_1}:
+    rate_selection: 'rate_card'
+    logis_company: logistic_company_1
+-
+  Get rate method
+-
+  !python {model: shipping.rate.wizard}: |
+    data = self.get_rate(cr, uid, [ref('shipping_rate_wizard_1')])
+-
+  I clicked on 'Distribute Weight' button.
+-
+  !python {model: stock.picking.out}: |
+    data = self.distribute_weight(cr, uid, [ref('stock_picking_out_out19')])
+-
+  I clicked on 'Process Shipment' button.
+-
+  !python {model: stock.picking.out}: |
+    data = self.process_ship(cr, uid, [ref('stock_picking_out_out19')])
+-
+  I Create a sale order having additional details of logistic company, rate selection.
+-
+   !record {model: sale.order, id: sale_order_so2}:
+     amount_total: 885.0
+     amount_untaxed: 885.0
+     date_order: '2013-08-22'
+     order_line:
+      - name: '[PC1] Basic PC'
+        product_uom_qty: 1.0
+        price_unit: 885.0
+     order_policy: manual
+     partner_id: base.res_partner_14
+     pricelist_id: product.list0
+     partner_order_id: base.res_partner_14
+

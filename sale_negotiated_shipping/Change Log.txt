@@ -1,0 +1,22 @@
+===============================================================================
+ Version Change Log 
+ Module: sale_negotiated_shipping
+===============================================================================
+Version 2.5 (07-11-2013) by Serpent Consulting Services Pvt. Ltd.
+	* Correction of code for invoice validation on SO confirmation
+
+Version 2.4 (27-09-2013) by Serpent Consulting Services Pvt. Ltd.
+	* Removed duplicate total_net_weight field and made sale_account_id non mandatory
+
+Version 2.3 (27-08-2013) by Dhwani
+	* Added a yml test file
+
+Version 2.2 (14-06-2013)by Dhirendra
+	* Added some tag in xml file
+
+Version 2.1 (30-05-2013)by Dhirendra
+	* Inherit stock.picking.out class
+
+Version 2.0 (22-02-2013)
+    * Migrated view of sale negotiated shipping.
+    * Merged partner address in to partner. 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="base_partner_view_inherit" model="ir.ui.view">
+			<field name="name">base_partner_view_inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='bank_ids']" position="before">
+					<separator string="Credit Card"/>
+					<newline/>
+					<!--field name="payment_profile_id" nolabel='1' colsapn='4' cols='8'/-->
+					<group colsapn='4'>
+					<field name="payment_profile_ids" nolabel='1' colsapn='4' >
+						<tree string='Payment Profiles'>
+							<field name="name"/>
+							<field name="cust_profile_id"/>
+							<field name="transaction_history_ids"/>
+							<field name="description"/>
+							<field name="use_default" invisible='1'/>
+							<button name="%(action_edit_payment_profile)d" type='action' string='Edit Payment Profile' icon="gtk-edit"/>
+							<button name="%(action_delete_payment_profile)d" type='action' string='Delete Payment Profile' icon="gtk-cancel"/>
+							<button name='set_default' string='Set as Default' icon="gtk-execute" type='object' attrs="{'invisible':[('use_default','=',True)]}"/>
+						</tree>
+					</field>
+					<newline/>
+					<button name="%(action_create_payment_profile)d" type='action' string='Create Payment Profile'/>
+					</group>
+					<!--button name="%(action_make_transaction)d" type='action' string='Make Transaction'/-->
+					<!--button name="%(action_edit_payment_profile)d" type='action' string='Edit Payment Profile'/-->
+					<!--button name="%(action_delete_payment_profile)d" type='action' string='Delete Payment Profile'/-->				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

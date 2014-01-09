@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>       
+    
+    	
+    	<record id="view_account_invoice_filter_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.search.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id"  ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+				<xpath expr="/search/filter[@name='unpaid']" position="inside">
+					<filter name="manual" icon="terp-dolar_ok!" string="Manual Invoices" domain="[('credit_card','=',False)]" help="Unpaid Invoices"/>
+					<filter name="credit" icon="terp-dolar_ok!" string="Credit Card Invoices" domain="[('credit_card','=',True)]" help="Unpaid Invoices"/>
+				</xpath>
+            </field>
+    	</record>
+    	
+    	
+    	<record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="context">{'type':'out_invoice', 'journal_type': 'sale','search_default_manual':1}</field>
+        </record>
+    	
+    	
+</data>
+</openerp>

@@ -1,0 +1,16 @@
+-
+  In order to test Partner's address validation zip search features, I create partner's address record having city, longitude, latitude, etc details. 
+-
+  I modify the record of partner's company with lzipmatch and check this box because I enter zip codes with addresses and it populate city/state/longitude/latitude.
+-
+  !record {model: res.company, id: base.main_company}:
+    lzipmatch: True
+- 
+  I create record for partner's address details having city name, latitude, longitude, state, zipcode data.
+- 
+  !record {model: address.zip, id: address_zip_0}:
+    city: Detroit
+    latitude: '42.33143'
+    longitude: '-83.04575'
+    state_id: base.state_us_1
+    zipcode: '35004'

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_cim_transaction_cust_profile_form" model="ir.ui.view">
+			<field name="name">view_cim_transaction_cust_profile_form</field>
+			<field name="model">cust.profile</field>
+			<field name="arch" type="xml">
+				<form string="Profile">
+					<field name="name"/>
+					<field name="payment_profile_ids"/>
+					<field name="shipping_address_id"/>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_cim_transaction_cust_profile_tree" model="ir.ui.view">
+			<field name="name">view_cim_transaction_cust_profile_tree</field>
+			<field name="model">cust.profile</field>
+			<field name="arch" type="xml">
+				<tree string="Profile">
+					<field name="name"/>
+					<field name="payment_profile_ids"/>
+					<field name="shipping_address_id"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<record id="view_cim_transaction_cust_payment_profile_form" model="ir.ui.view">
+			<field name="name">view_cim_transaction_cust_payment_profile_form</field>
+			<field name="model">cust.payment.profile</field>
+			<field name="arch" type="xml">
+				<form string="Payment Profile">
+					<field name="name"/>
+					<field name='cust_profile_id'/>
+					<field name="address_id"/>
+					<field name="description"/>
+					<newline/>
+					<field name="transaction_history_ids" colspan='4' nolabel='1'/>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="view_cim_transaction_cust_payment_profile_tree" model="ir.ui.view">
+			<field name="name">view_cim_transaction_cust_payment_profile_tree</field>
+			<field name="model">cust.payment.profile</field>
+			<field name="arch" type="xml">
+				<tree string="Payment Profile">
+					<field name="description"/>
+					<field name="name"/>
+					<field name="address_id"/>
+					<field name="transaction_history_ids" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_transaction_history_form" model="ir.ui.view">
+			<field name="name">view_transaction_history_form</field>
+			<field name="model">transaction.history</field>
+			<field name="arch" type="xml">
+				<form string="Transaction History">
+					<field name="trans_id"/>
+					<field name="amount"/>
+					<field name="trans_type"/>
+					<field name="transaction_date"/>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_transaction_history_tree" model="ir.ui.view">
+			<field name="name">view_transaction_history_tree</field>
+			<field name="model">transaction.history</field>
+			<field name="arch" type="xml">
+				<tree string="Transaction History">
+					<field name="trans_id"/>
+					<field name="amount"/>
+					<field name="trans_type"/>
+					<field name="transaction_date"/>
+				</tree>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,30 @@
+- 
+  I create a record for account invoice
+- 
+  !record {model: account.invoice, id: account_invoice_0}:
+    amount_tax: 100.0
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    company_id: base.main_company
+    currency_id: base.EUR
+    date_invoice: '2013-08-29'
+    invoice_line:
+      - account_analytic_id: account.analytic_administratif
+        company_id: base.main_company
+        name: '[CARD] Graphics Card'
+        origin: OUT/00017:SO026
+        partner_id: base.res_partner_2
+        price_subtotal: 885.0
+        price_unit: 885.0
+        product_id: product.product_product_24
+        quantity: 1.0
+        sequence: 0.0
+        uos_id: product.product_uom_unit
+        weight_net: 0.0
+    origin: OUT/00017:SO026
+    partner_id: base.res_partner_2
+    payment_term: account.account_payment_term_net
+    reference_type: none
+    residual: 0.0
+    shipcharge: 0.0
+    total_weight_net: 0.0

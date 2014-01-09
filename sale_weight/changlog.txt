@@ -1,0 +1,10 @@
+===============================================================================
+ Version Change Log 
+ Module: sale_weight
+===============================================================================
+Version 2.1 (26-08-2013) by Dhwani
+	* Added a yml test file
+
+Version 2.0 (21-02-2013)
+    * migrated  view of sale order
+     

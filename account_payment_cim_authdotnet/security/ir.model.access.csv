@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cim_auth_config_account_user,cim.auth.config.account.user,model_auth_config,account.group_account_user,1,1,1,0
+access_cim_auth_config_account_manager,cim.auth.config.account.manager,model_auth_config,account.group_account_manager,1,1,1,0
+access_cim_cust_payment_profile_account_user,cim.cust.payment.profile.account.user,model_cust_payment_profile,account.group_account_user,1,1,1,0
+access_cim_cust_payment_profile_account_manager,cim.cust.payment.profile.account.manager,model_cust_payment_profile,account.group_account_manager,1,1,1,0
+access_cim_cust_profile_account_user,cim.cust.profile.account.user,model_cust_profile,account.group_account_user,1,1,1,0
+access_cim_cust_profile_account_manager,cim.cust.profile.account.manager,model_cust_profile,account.group_account_manager,1,1,1,0
+access_cim_auth_config_account_cc_manager,cim.auth.config.account.cc.manager,model_auth_config,account_payment_creditcard.group_cc_mgr,1,1,1,0
+access_cim_cust_payment_profile_account_cc_manager,cim.cust.payment.profile.account.cc.manager,model_cust_payment_profile,account_payment_creditcard.group_cc_mgr,1,1,1,0
+access_cim_cust_profile_account_cc_manager,cim.cust.profile.account.cc.manager,model_cust_profile,account_payment_creditcard.group_cc_mgr,1,1,1,0
+access_cim_transaction_history_user,access_cim_transaction_history.account.user,model_transaction_history,account.group_account_user,1,1,1,0
+access_cim_auth_config_account_invoice_user,cim.auth.config.account.invoice.user,model_auth_config,account.group_account_invoice,1,1,1,0
+access_cim_cust_payment_profile_account_invoice_user,cim.cust.payment.profile.account.invoice.user,model_cust_payment_profile,account.group_account_invoice,1,1,1,0
+access_cim_cust_profile_account_invoice_user,cim.cust.profile.account.invoice.user,model_cust_profile,account.group_account_invoice,1,1,1,0

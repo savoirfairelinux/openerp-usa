@@ -1,0 +1,23 @@
+===============================================================================
+ Version Change Log 
+ Module: partner_address_validation
+===============================================================================
+Version 2.5 (09-10-2013) by Serpent Consulting Services Pvt. Ltd.
+	* Made address_validation_method field non-mandatory at Partner form view
+
+Version 2.4 (27-09-2013) by Serpent Consulting Services Pvt. Ltd.
+	* Made address_validation_method field non-mandatory at Sale order form view
+
+Version 2.3 (26-08-2013) by Dhwani
+	* Added a yml test file
+
+Version 2.2 (25-06-2013) by Dhirendra
+	* Remove address_id and replace it partner_id
+
+Version 2.1 (13-03-2013) by Dhirendra
+	* Improved code competable to v7
+
+Version 2.0 (22-02-2013)
+	* merge the partner address in to partner
+	* change the form view of partner
+	* remove the field partner_order_id in address validation wizard of sale order

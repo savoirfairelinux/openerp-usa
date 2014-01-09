@@ -1,0 +1,13 @@
+===============================================================================
+ Version Change Log (nuvico_purchase_advance_invoice)
+===============================================================================
+2.00  --> September 11,2013 : Shyam 
+    * Migrated the module from 6.1 to 7.0
+
+1.02  --> April 27,2012 : Anup
+    * Refactored the code and removed the unnecessary file from the module amd removed its reference too.
+
+1.01  --> April 18,2012 : Anup
+    * Implemented the synchronization between advance invoices and final invoice for invoice policy From Order and From Picking.
+
+

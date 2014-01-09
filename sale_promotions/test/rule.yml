@@ -1,0 +1,74 @@
+- 
+  Creating a promos.rules record
+- 
+  !record {model: promos.rules, id: promos_rules_promotion0}:
+    active: true
+    coupon_code: '1122333'
+    expected_logic_result: 'True'
+    from_date: '2013-08-22 06:50:50'
+    logic: or
+    name: Promotion1
+    partner_categories:
+      - base.res_partner_category_4
+    sequence: 0.0
+    shop: sale.sale_shop_1
+    to_date: '2013-08-31 06:50:52'
+    uses_per_coupon: 10
+    uses_per_partner: 5
+    
+- 
+  Creating a sale.order record
+- 
+  !record {model: sale.order, id: sale_order_so0}:
+    amount_tax: 0.0
+    amount_total: 4425.0
+    amount_untaxed: 4425.0
+    company_id: base.main_company
+    coupon_code: '1122333'
+    create_date: '2013-08-30 06:15:12'
+    date_order: '2013-08-30'
+    invoice_quantity: order
+    name: SO017
+    order_line:
+      - company_id: base.main_company
+        name: '[CARD] Graphics Card'
+        order_partner_id: base.res_partner_address_23
+        price_unit: 885.0
+        product_id: product.product_product_24
+        product_uom: product.product_uom_unit
+        product_uom_qty: 5.0
+        product_uos_qty: 5.0
+        salesman_id: base.user_root
+        state: draft
+        th_weight: 0.0
+        type: make_to_stock
+    order_policy: manual
+    partner_id: base.res_partner_address_23
+    partner_invoice_id: base.res_partner_address_23
+    partner_shipping_id: base.res_partner_address_23
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+
+- 
+  Creating a sale.order.line record
+- 
+  !record {model: sale.order.line, id: sale_order_line_cardgraphicscard0}:
+    company_id: base.main_company
+    name: '[CARD] Graphics Card'
+    order_id: sale_order_so0
+    order_partner_id: base.res_partner_address_23
+    price_unit: 885.0
+    product_id: product.product_product_24
+    product_uom: product.product_uom_unit
+    product_uom_qty: 5.0
+    product_uos_qty: 5.0
+    salesman_id: base.user_root
+    state: draft
+    th_weight: 0.0
+    type: make_to_stock
+
+-
+ Call apply_promotions Function
+-
+  !python {model: sale.order}: |
+      self.apply_promotions(cr, uid, [ref("sale_order_so0")])

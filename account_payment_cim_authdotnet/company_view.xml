@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="base_caompany_view_inherit" model="ir.ui.view">
+			<field name="name">base_caompany_view_inherit</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Configuration']" position="inside">
+					<separator colspan="4" string="Authorization Configuration"/>
+					<group colspan='4'>
+						<field name="auth_config_id"  >
+							<tree string="Configuration">
+								<field name="url" />
+								<field name="url_extension" />
+								<field name="xsd_link" />
+							</tree>
+							<form string="Configuration">
+								<field name="url" />
+								<field name="url_extension" />
+								<field name="xsd_link" />
+								<field name="transaction_key" />
+								<field name="login_id" />
+							</form>
+						</field>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

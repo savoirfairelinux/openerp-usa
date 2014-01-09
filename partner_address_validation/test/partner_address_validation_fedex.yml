@@ -1,0 +1,50 @@
+- 
+  I Create a new record for fedex account.
+- 
+  !record {model: fedex.account, id: fedex_account_serpent0}:
+    fedex_account_number: 18da1361
+    fedex_key: ex443
+    fedex_meter_number: '83618'
+    fedex_password: password
+    name: Serpent
+-
+  I modify the record of partner with address validation method.
+- 
+  !record {model: res.partner, id: base.res_partner_15}:
+    address_validation_method: 'fedex.account'
+-
+  I click on 'Validate Address' button that popup a new window.
+-
+  !record {model: partner.addr_validate, id: partner_addr_validate_2}:
+-
+  I clicked on 'Update Address' button.
+-
+  !python {model: partner.addr_validate}: |
+    context.update({'active_model': 'res.partner','active_ids': [ref('base.res_partner_15')]})
+    partner_obj = self.update_address(cr, uid, [ref('partner_addr_validate_2')], context=context)
+-
+  I create a sale order with payment method, ups shipper and ups servce details.
+-
+  !record {model: sale.order, id: partner_adderess_validation_sale_order_so2}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-08-22'
+    order_line:
+     - name: '[CARD] Graphics Card'
+       product_id: product.product_product_24
+       product_uom_qty: 1.0
+       price_unit: 885.0
+    order_policy: manual
+    partner_id: base.res_partner_15
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+-
+  I click on 'Validate Address' button that popup a new window.
+-
+  !record {model: so.addr_validate, id: so_addr_validate_2}:
+-
+  I clicked on 'Update Address' button.
+-
+  !python {model: so.addr_validate}: |
+    context.update({'active_model': 'sale.order','active_ids': [ref('partner_adderess_validation_sale_order_so2')]})
+    partner_obj = self.update_address(cr, uid, [ref('so_addr_validate_2')], context=context)

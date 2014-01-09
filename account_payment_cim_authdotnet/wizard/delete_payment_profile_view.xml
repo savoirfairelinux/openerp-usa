@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="delete_payment_profile_form_view" model="ir.ui.view">
+			<field name="name">delete_payment_profile_form_view</field>
+			<field name="model">delete.payment.profile</field>
+			<field name="arch" type="xml">
+				<form string="Delete Payment Profile" version="7.0">
+                    <group>
+					   <field name="payment_profile_id" attrs="{'readonly':[('payment_profile_id','!=',None)]}" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel" icon="gtk-cancel" />
+						<button name="del_pay_profile" string="Delete" type="object"
+							icon="gtk-ok" default_focus="1" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="action_delete_payment_profile" model="ir.actions.act_window">
+			<field name="name">Delete Payment Profile</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">delete.payment.profile</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="delete_payment_profile_form_view" />
+			<field name="target">new</field>
+		</record>
+
+
+	</data>
+</openerp>

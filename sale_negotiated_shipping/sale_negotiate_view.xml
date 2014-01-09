@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--Zone Map Tree View-->
+		<!-- Adds fields Zone, State and Rate configuration to Zone Map Tree View -->
+		<record id="zone_map_tree" model="ir.ui.view">
+			<field name="name">zone.map.tree</field>
+			<field name="model">zone.map</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string='Zone Map'>
+					<field name="zone" select="1"/>
+					<field name="state_id" select="1"/>
+					<field name="rate_config_id" select="1"/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Zone Map Form-->
+		<!--Adds fields Zone, State and Rate configuration to Zone Map Form View-->
+
+		<record id="zone_map_form" model="ir.ui.view">
+			<field name="name">zone.map.form</field>
+			<field name="model">zone.map</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string='Zone Map' version="7.0">
+				    <sheet>
+				        <group>
+							<field name="zone" select="1"/>
+							<field name="state_id" select="1"/>
+							<field name="rate_config_id" select="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Zone Map Action Record -->
+		<record id="zone_map_action" model="ir.actions.act_window">
+			<field name="name">Zone Map</field>
+			<field name="res_model">zone.map</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="zone_map_tree"/>
+		</record>
+
+		<!-- Menu item for for Zone Map under the Menu Localisation-->
+		<menuitem
+            id="zone_map_menu"
+            name="Zone Map"
+            parent="negotiated_shipping_config"
+        	action="zone_map_action" />
+
+	</data>
+</openerp>

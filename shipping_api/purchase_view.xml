@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record id="shipping_api_purchase_order_form_inherited" model="ir.ui.view">
+            <field name="name">shipping.api.purchase.view.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='warehouse_id']" position="attributes">
+					<attribute name="required">1</attribute>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- UPS Account -->
+		<record id="form_view_for_ups_account" model="ir.ui.view">
+			<field name="name">form.view.for.ups</field>
+			<field name="model">ups.account</field>
+			<field name="arch" type="xml">
+				<form string="Ups" version="7.0">
+					<sheet>
+						<group>
+							<field name="accesslicensenumber" />
+							<field name="acc_no" />
+							<field name="userid" />
+							<field name="password" password="True" />
+							<field name="ups_active" />
+							<field name="url" />
+							<field name="max_lim_size" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_view_for_ups_account" model="ir.ui.view">
+			<field name="name">tree.view.for.ups</field>
+			<field name="model">ups.account</field>
+			<field name="arch" type="xml">
+				<tree string="Ups">
+					<field name="accesslicensenumber" />
+					<field name="userid" />
+					<field name="ups_active" />
+					<field name="acc_no" />
+					<field name="url" />
+					<field name="max_lim_size" />
+
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_ups_account_menu" model="ir.actions.act_window">
+			<field name="name">UPS Account</field>
+			<field name="res_model">ups.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_ups_account" />
+		</record>
+
+		<!-- FedEx Account -->
+		<record id="form_view_for_fedex_account" model="ir.ui.view">
+			<field name="name">form.view.for.fedex</field>
+			<field name="model">fedex.account</field>
+			<field name="arch" type="xml">
+				<form string="Fedex" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" required="1" select="1" />
+							<field name="test_mode" select="1" />
+							<field name="fedex_key" required="1" />
+							<field name="fedex_password" required="1" password="True"/>
+							<field name="fedex_account_number" required="1" />
+							<field name="fedex_meter_number" required="1" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_view_for_fedex_account" model="ir.ui.view">
+			<field name="name">tree.view.for.fedex</field>
+			<field name="model">fedex.account</field>
+			<field name="arch" type="xml">
+				<tree string="Fedex">
+					<field name="name" />
+					<field name="fedex_key" />
+<!--					<field name="fedex_password" password="True"/-->
+					<field name="fedex_account_number" />
+					<field name="fedex_meter_number" />
+					<field name="test_mode" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_fedex_account_menu" model="ir.actions.act_window">
+			<field name="name">FedEx Account</field>
+			<field name="res_model">fedex.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_fedex_account" />
+		</record>
+
+		<!-- USPS Account -->
+		<record id="form_view_for_usps_account" model="ir.ui.view">
+			<field name="name">form.view.for.usps</field>
+			<field name="model">usps.account</field>
+			<field name="arch" type="xml">
+				<form string="Usps" version="7.0">
+					<sheet>
+						<group>
+							<field name="name" required="1" select="1" />
+							<field name="test_mode" select="1" />
+							<field name="usps_userid" required="1" select="1" />
+							<field name="usps_url_test" select="1" />
+							<field name="usps_url" select="1" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_view_for_usps_account" model="ir.ui.view">
+			<field name="name">tree.view.for.usps</field>
+			<field name="model">usps.account</field>
+			<field name="arch" type="xml">
+				<tree string="Usps">
+					<field name="name" />
+					<field name="usps_userid" required="1" />
+					<field name="usps_url_test" />
+					<field name="usps_url" />
+					<field name="test_mode" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_usps_account_menu" model="ir.actions.act_window">
+			<field name="name">USPS Account</field>
+			<field name="res_model">usps.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_usps_account" />
+		</record>
+
+		<menuitem id="menu_address_validation_accounts" name="Address Validation Accounts"
+			parent="base.menu_administration" />
+
+		<menuitem id="ups_account_menu" name="UPS Account"
+			parent="menu_address_validation_accounts" action="action_for_ups_account_menu" />
+
+		<menuitem id="fedex_account_menu" name="FedEx Account"
+			parent="menu_address_validation_accounts" action="action_for_fedex_account_menu" />
+
+		<menuitem id="usps_account_menu" name="USPS Account"
+			parent="menu_address_validation_accounts" action="action_for_usps_account_menu" />
+
+	</data>
+</openerp>
+

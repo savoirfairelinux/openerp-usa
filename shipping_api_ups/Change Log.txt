@@ -1,0 +1,195 @@
+===============================================================================
+ Version Change Log (shipping_api_ups)
+===============================================================================
+2.10 2013-10-15 by Dhwani
+	* Added access rights to the employee and made the address as property field.
+
+2.9 2013-09-20 by Dhirendra
+	* Set default package in a delivery order and improved views
+	
+2.8 2013-08-24 by Dhwani
+	* Added a yml file.
+
+2.7 2013-07-31 by Serpent Consulting Services Pvt. Ltd.
+	*improved the code label can get in ZPL format and the label attached in attachments,
+	* added access right partner_address_validation,
+	* added shipping_label_type model for label
+	
+2.6 2013-07-29 by Dhirendra
+	* multiple labels print and his failure and success message store a particular package
+
+2.5 2013-07-20 by Dhirendra
+	* Added a demo data of shipping services
+
+2.4 2013-06-12 by Dhirendra
+	* Added a some pdf files in ups
+
+2.3 2013-05-30 by Dhirendra
+	* Change a some tag in request xml method
+
+2.2 2013-05-14 by Dhirendra
+	* Remove address_id and replace it partner_id
+
+2.1 2013-04-13 by Dhirendra
+	* Improved code competable to v7
+
+2.0 2013-02-28 by Dhirendra
+	* Migration the module from version 6.1 to 7.0
+
+2012-11-27 By Naitik
+    * Remove files 
+     
+2012-11-26 By Naitik
+    * Migrate the module from OpenERP version 6.0 to 6.1.
+    
+2012-10-21 By Rima
+	* Added the tracking number information on the notes section in the delivery orders
+
+2012-10-18 By Rima
+	* Calculated the ship charge when the label is generated
+
+2012-10-17 By Rima
+	* Moved the package type definition to shipping_api module
+
+1.49 2012-09-09 Rima
+    * Error fixing voiding Shipment
+
+1.48 2012-07-17 Janeesh
+    * Error fixing with Calculate Shipping wizard in Invoice
+
+1.47 2012-07-12 By Janeesh
+    * Merging of highvalue shipment  module
+
+1.46 2012-07-02 By Rima
+	* Removed the duplicate view in shipping
+
+1.45 2012-07-02 By Rima
+	* Updated the view for Shipping
+
+1.44 2012-06-28 By Janeesh
+    * Added Shipping tab information in Delivery Order in the view of picking in Sale Order History tab
+
+1.43 2012-06-27 By Janeesh
+    * Bug fix with module installation
+
+1.42 2012-06-06 By Janeesh
+    * Modification in calculate shipping
+
+1.41 on 2012-06-04 by Janeesh
+    * Bug fix with opening calculate shipping wizard
+
+1.40 on 2012-06-01 by Janeesh
+	* Bug fix with shipping rate calculation and process shipping
+
+1.39 on 2012-05-22 by Janeesh
+	* Configuration menu for Packaging Type and Modifications in the code
+
+1.38 on 2012-05-15 by Janeesh
+	* Quick shipping label modification
+
+1.37 on 2012-05-10 by Janeesh
+	* Quick shipping modifications - Print Shipping Labels prints the label directly
+	* Fix with Delivery Order email
+
+1.36  on 2012-05-10 by Rima
+	* Fix on processing stock.picking
+
+1.35 on 2012-05-08 by Janeesh
+	* Added shipping state in delivery order tree view
+	* Bug fix with note field on process shipment
+
+1.34
+	* Module cleanup
+
+1.33 on 2012-02-09 by Arif
+	* Fixed issue on void of shipment having multiple packages
+
+1.32 on 2012-02-08 by Arif
+	* Fixing issue with Canada shipment.
+
+1.31 on 2012-02-08 by Arif
+	* Modified the shipment processing to generate single shipment for delivery
+	  order
+
+1.30 by Arif on 2012-02-02
+	* Resolving the issue with void Canada shipments. (Changed Package Level
+	  void to Shipment Level Void.
+
+1.29 by Arif on 2012-01-31
+	* Fix - Shipping Service doesn't populate if delivery order created not
+	  from sales order
+
+1.28 by Arif on 2012-01-16
+	* Fixing issue of Shipment Service Options
+
+1.27 by Arif on 2012-01-12
+	* Added fields required for Shipment Billing option
+	* Modifications on ups shipment processing required for Billing options
+
+1.26 2011-12-29 by Janeesh
+	* Added additional fields related to 'Bill Shipping To'
+
+1.25 2011-12-29 by Arif
+	* UPS ship details from sales order to delivery order
+
+1.24 2011-12-22 by Arif
+	* UPS ship rate request
+		- modification on sale order view
+		- Updated Ship Charge wizard for Ship Rate request.
+
+1.23 (2011-12-20) By Janeesh
+	* Added Paypal and No Charge in Payment Methods in Sale Order
+
+1.22 on 2011-12-19 by Arif
+	* Control log and control log receipt report
+
+1.21 on 2011-11-15 by Arif
+	* UPS account from partner address validation account
+		Important : If you are updating these modules on an existing database in which the shipping configurations are already made, then from the Logistic Company the UPS / FedEx account should be selected.
+
+1.20 (2011-10-03) by Arif
+	* Modifications required for implementing fedex
+1.18 (2011-09-23) by Arif
+	* Void - Back to draft
+1.17 (2011-09-21) by Vinod
+	* Added sale account id to invoice when creating it from shipping.
+1.16 (2011-09-19) by Arif
+	* Fixed the issue with mail body for automated mail of 'Shipped Order'
+1.15 (2011-08-19) by Arif
+	* Added validation on shipment process for sale order of CC
+1.14 (2011-08-10)
+	* Removed dependancy to account_payment_creditcard
+1.13 (2011-07-06) By Jabir
+	* Add validation of checking shipping packages before doing process shipping
+
+1.12 (2011-07-06) By Jabir
+	* Updated shipping charge for first invoice created from delivery order
+1.11 (2011-07-04) By Jabir
+	* Integrated Canada shipping documents
+1.9 -> 1.10 (2011-06-10) By Jabir
+	* Automatically create invoice from delivery order if sale order is invoice from picking
+1.8 -> 1.9 (2011-06-10) By Jabir
+	* Created security rules for models
+	* Updated package weight
+Version 1.6 -> 1.7
+	* Fixed the issue with error in Processed Shipping on Delivery Order
+Version 1.5 -> 1.6
+	* Fixed the issue with error in Processed Shipping on Delivery Order
+Version 1.4 -> 1.5
+	* Moved the credti card charging of pre-authorised payment from shipping to process button on delivery order.
+Version 1.3 -> 1.4
+	* Changed the wizard print summary report from old type to new orm.memory type
+Version 1.02 -> 1.03
+	*Adding shipping date into Shipping log
+
+Version 1.01 -> 1.02
+	* Changed the wizard update_shipping_status from old type to new orm.memory type
+Version 1.00 -> 1.01
+	* Fixed direct delivery order creating creating issue
+Version 1.0
+	* Created shipping label report
+	* Created Quick ship wizard
+	* Wizard to print summary report
+	* Wizard to update the status of shipping log
+	* Shipping using ups api
+	* Summary report

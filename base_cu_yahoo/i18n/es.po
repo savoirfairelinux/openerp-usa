@@ -1,0 +1,38 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* base_cu_sunat
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0alpha\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-29 19:29+0000\n"
+"PO-Revision-Date: 2012-11-29 19:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_cu_sunat
+#: model:ir.model,name:base_cu_sunat.model_res_currency
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: base_cu_sunat
+#: constraint:res.currency:0
+msgid "Error! You cannot define a rounding factor for the company's main currency that is smaller than the decimal precision of 'Account'."
+msgstr "Error! No se puede definir un factor de redondeo para la compañía principal menor que la precisión decimal de 'Account'."
+
+#. module: base_cu_sunat
+#: sql_constraint:res.currency:0
+msgid "The currency code must be unique per company!"
+msgstr "¡El código de moneda debe ser único por compañía!"
+
+#. module: base_cu_sunat
+#: code:addons/base_cu_sunat/currency_update.py:138
+#, python-format
+msgid "Exception on %s: %s"
+msgstr "Excepción en %s: %s"
+

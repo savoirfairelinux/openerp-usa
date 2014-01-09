@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+		<wizard string="Address Validation"
+			model="ups.account"
+			name="partner.address.validate.address"
+			id="wizard_address_validation"
+			multi="True"/>
+
+	</data>
+</openerp>

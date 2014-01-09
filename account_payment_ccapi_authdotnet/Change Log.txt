@@ -1,0 +1,65 @@
+===============================================================================
+ Version Change Log (account_payment_ccapi_authdotnet)
+===============================================================================
+2.0 on 2013-10-25 by Serpent Consulting Services Pvt. Ltd.
+	* Migration to v7 being taken to next level
+
+1.21 On 2011-11-15 by Arif
+	* Corrected the unit price in refund invoice - Now it takes from  sale order instead of products unit price
+	* Fixed the bug - Shipping cost was not added to total and residual amounts
+	* Fixed the AuthnetAIMError
+	
+1.20 0n 2011-11-09 by Arif
+	* Moved credicard refund on product return to after processing of related incoming shipment
+	
+1.19 on 2011-11-08 By Janeesh
+	* Fixed error on creating invoice (removed _get_invoice_type function. need to test more the effect of this) 
+
+1.18 on 2011-10-06 By Janeesh
+	* When Sale Order is cancelled, Invoice and Picking automatically cancelled for CreditCard
+	
+1.17 on 2011-09-29 By Arif
+	* Removed the attribute modification on Authorize button since it has been 
+	  moved near to Post buttor where required modification has been made.
+	  
+1.16 on 2011-08-25 by Arif
+	* Modifications related with credit card refund
+	
+1.15 on 2011-08-17 by Janeesh
+	* Added Origin field in Sales receipt
+	
+1.14 on 2011-08-17 by Arif
+	* Added check box for ship refund in product return wizard
+	
+1.13 on 2011-08-10 by Arif
+	* Partial credit card refund from product retrun from delivered products 
+
+1.12 on 2011-08-09 by Arif
+	* Removed reconcillation
+	* Created Refund sales receipt
+	* Creait card fields read only in Pay Invoice 
+
+1.11 on 11 July 2011 by Arif
+	* Cancelled sales receipt on Refund 
+1.10 on 11 July 2011 by Jabir
+	* CCV saved on bank details
+1.08	-> 1.09
+	* Added Security for the model created from this module
+1.07	-> 1.08
+	* Created the sales reciept line for shipping charge
+1.06	-> 1.07
+	* Created the sales reciept on sale order confirm and validate it on payment
+
+1.05	-> 1.06
+	* Fixed the wrong account issue on sales receipt
+
+1.04	-> 1.05
+	* Fixed issue with sale order state being draft authorised even after payed and delivered
+
+1.03	-> 1.04
+	* Created sales reciept before posting sales payment
+
+1.0	-> 1.03
+	* Add function to hook methods authorize and cc_refund which is added on account_payment_creditcard module
+	* Add class to do credit card transaction
+	* Add function to Authorize button

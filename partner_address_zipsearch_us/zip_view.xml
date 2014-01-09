@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<!--  Zip view and menu -->
+    <record id="tree_view_for_zip" model="ir.ui.view">
+            <field name="name">tree.view.for.zip</field>
+            <field name="model">address.zip</field>
+            <field name="arch" type="xml">
+                <tree string='Zip'>
+					<field name="zipcode" />
+					<field name="state_id"/>
+					<field name="city" />
+					<field name="longitude"/>
+					<field name="latitude"/>
+                </tree>
+            </field>
+    </record>
+
+	<record id="form_view_for_zip" model="ir.ui.view">
+            <field name="name">form.view.for.zip</field>
+            <field name="model">address.zip</field>
+            <field name="arch" type="xml">
+                <form string='Zip' version="7.0">
+                    <sheet>
+                        <group>
+							<field name="zipcode" select="1"/>
+							<field name="state_id" select="1"/>
+							<field name="city" select="1"/>
+							<field name="longitude"/>
+							<field name="latitude"/>
+						</group>
+					</sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="action_for_zip_menu" model="ir.actions.act_window">
+            <field name="name">Zip</field>
+            <field name="res_model">address.zip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tree_view_for_zip"/>
+         </record>
+
+        <menuitem id="zip_menu" name="Zip" parent="base.menu_localisation"
+        	action="action_for_zip_menu" />
+
+		<!--  zip city match configuration on company -->
+        <record model="ir.ui.view" id="view_company_inherit_zip_form">
+            <field name="name">res.company.form.zip.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <page string="Configuration" position="inside">
+                  <group col="2" colspan="2">
+                      <separator string="Zip City Validation" colspan="2"/>
+                      <field name="lzipmatch" colspan="2" />
+                  </group>
+                </page>
+            </field>
+        </record>
+
+    </data>
+</openerp>

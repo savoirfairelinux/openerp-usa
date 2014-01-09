@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--  Adding address validation method on company -->
+		<record id="address_validation_compny_view" model="ir.ui.view">
+			<field name="name">address.validation.company.view</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Configuration']" position="inside">
+					<label for='address' string='Address Validation Method'/>
+					<field name="address_validation_method"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

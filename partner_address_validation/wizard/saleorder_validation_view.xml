@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- View of wizard to validate address on saleorder -->
+		<record id="view_so_addrvalidate" model="ir.ui.view">
+			<field name="name">Sale Order Address Validation</field>
+			<field name="model">so.addr_validate</field>
+			<field name="arch" type="xml">
+				<form string="Address validation" version="7.0">
+				   <sheet>
+				    <notebook>
+					<page string="Invoice Address">
+					   <group>
+						<field name="sale_id" on_change="onchange_update(sale_id)"
+							invisible="1" />
+						<field name="inv_address_id" invisible="1" />
+						<field name="ord_address_id" invisible="1" />
+						<field name="ship_address_id" invisible="1" />
+						<newline />
+						<field name="inv_address_list" colspan="4" nolabel="1" width="600"
+							height="120" />
+						<field name="inv_error_msg" nolabel="1"/>
+					   </group>
+					</page>
+					<page string="Ordering Contact">
+					   <group>
+						<field name="ord_address_list" colspan="4" nolabel="1" width="600"
+							height="120" />
+						<field name="ord_error_msg" nolabel="1"/>
+					   </group>
+					</page>
+					<page string="Delivery Address">
+					   <group>
+						<field name="ship_address_list" colspan="4" nolabel="1"
+							width="600" height="120" />
+						<field name="ship_error_msg" nolabel="1"/>
+					   </group>
+					</page>
+					</notebook>
+					<footer>
+					<button name="update_address" string="Update Address" type="object" icon="gtk-ok" />
+						
+					<button special="cancel" string="Cancel" icon="gtk-cancel" />
+					</footer>
+				  </sheet>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Sale Order Address Validation" res_model="so.addr_validate"
+			view_mode="form" view_id="view_so_addrvalidate" target="new"
+			id="so_addr_validate_act_window" />
+
+	</data>
+</openerp>
+
+
+
+
+

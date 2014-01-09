@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	  	<record model="ir.ui.view" id="sale_order_form_ups">
+			<field name="name">sale.order.view_form.ups</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="priority" eval="30" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Other Information']" position="inside">
+					<newline/>
+					<group colspan="4" col="4" attrs="{'invisible':[('ship_company_code','!=','ups')]}" >
+						<separator colspan="2" string="UPS"/>
+						<newline/>
+						<field name="ups_shipper_id" on_change="onchage_service(ups_shipper_id)"/>
+						<field name="ups_service_id" />
+						<field name="ups_pickup_type"/>
+						<field name="ups_packaging_type" widget="selection"/>
+					</group>
+				</xpath>
+			</field>
+		</record> 
+	</data>
+</openerp>

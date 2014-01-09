@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_acc_voucher_form" model="ir.ui.view">
+			<field name="name">view_acc_voucher_form</field>
+			<field name="model">account.voucher</field>
+			<field name="inherit_id" ref="account_payment_creditcard.account_voucher_changes_for_credit_card_02"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group[@name='saleinfo']" position="after">
+						<group col='6' colspan='4' name='cccim'>
+							<field name="payment_profile_id" domain="[('partner_id','=',partner_id)]" attrs="{'readonly':[('state','!=','draft')]}"/>
+							<button name="%(action_create_payment_profile)d" type='action' string='Create Payment Profile'/>
+						</group>
+				</xpath>
+				<xpath expr="//group[@name='autofill']" position="replace"/>
+				<xpath expr="//group[@name='ccdata']" position="replace"/>
+				<xpath expr="//group[@name='ccbank']" position="replace"/>
+				<xpath expr="//group[@name='ccchecks']" position="replace"/>
+				<xpath expr="//field[@name='cc_comment']" position="after">
+				    <newline/>
+					<separator colspan="4" string="Type of Transaction"/>
+					<newline/>
+					<field name="trans_type" /><!--Added-->
+				</xpath>
+				<xpath expr="//field[@name='cc_ecommerce_sale']" position="replace"/>
+			</field>
+		</record>
+        <record id="account_voucher_changes_for_credit_card_02" model="ir.ui.view">
+            <field name="name">account_voucher_changes_for_credit_card_02</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position='attributes'>
+                	<attribute name='on_change'>onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, context, rel_sale_order_id )</attribute>
+				</xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

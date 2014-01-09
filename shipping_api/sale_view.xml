@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	    <record id="shipping_api_sale_order_form_inherited" model="ir.ui.view">
+            <field name="name">shipping.api.view.form.inherit.one</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='invoice_exists']" position="attributes">
+					<attribute name="string">Shipped</attribute>
+					<attribute name="invisible">0</attribute>
+				</xpath>
+				<xpath expr="/form/sheet/group/group[1]/field[@name='partner_invoice_id']" position="before">
+					<field name="partner_order_id" domain="[('parent_id','=',partner_id)]" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}"/>
+                </xpath>
+				<xpath expr="//page[@string='Other Information']" position="inside" >
+					<group colspan="4" col="4">
+						<separator colspan="4" string="Shipping details"/>
+						<field name="logis_company" on_change="onchange_logis_company(logis_company)"/>
+						<field name="ship_company_code"/>
+					</group>
+				</xpath>
+				
+            </field>
+        </record>
+        
+	</data>
+</openerp>

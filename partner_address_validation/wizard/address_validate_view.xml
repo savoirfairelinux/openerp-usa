@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- View of wizard to validate address on partner and partner address -->
+		<record id="view_par_addrvalidate" model="ir.ui.view">
+			<field name="name">Partner Address Validation</field>
+			<field name="model">partner.addr_validate</field>
+			<field name="arch" type="xml">
+				<form string="address validation">
+					<separator string="Invoice Address"/>
+					<field name="address_id"  on_change="onchange_update(address_id)" invisible="1" />
+					<newline/>
+					<field name="address_list" colspan="4" nolabel="1" width="600" height="120"/>
+					<field name="error_msg" readonly="1" nolabel="1" colspan="4" height="35" />
+					<newline/>
+					<button name="update_address" string="Update Address" type="object" icon="gtk-ok"/>   
+					<button special="cancel" string="Cancel" icon="gtk-cancel"/>              
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Partner Address Validation"
+			res_model="partner.addr_validate"
+			view_mode="form"
+			view_id="view_par_addrvalidate"
+			target="new"
+			id="part_addr_validate_act_window"/>
+
+	</data>
+</openerp>
+
+
+
+
+

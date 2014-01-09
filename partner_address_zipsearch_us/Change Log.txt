@@ -1,0 +1,8 @@
+===============================================================================
+ Version Change Log 
+ Module: partner_address_zipsearch_us
+===============================================================================
+
+Version 2.0 (20-02-2013)
+	* merge the partner address in to partner
+	* change the form view of customer  

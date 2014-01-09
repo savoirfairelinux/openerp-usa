@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!-- Partner and partner address view modification -->
+    <record id="view_partner_form_inherit1" model="ir.ui.view">
+       <field name="name">view_partner_form_inherit1</field>
+       <field name="model">res.partner</field>
+       <field name="type">form</field>
+       <field name="inherit_id" ref="base.view_partner_form"/>
+       <field name="arch" type="xml">
+	       <xpath expr="//field[@name='zip']" position="replace"/>
+	       <xpath expr="//field[@name='city']" position="replace"/>
+	       <xpath expr="//field[@name='state_id']" position="replace"/>
+	       <xpath expr="//field[@name='country_id']" position="replace"/>
+	       <xpath expr="//field[@name='website']" position="before">
+		        <field name="zip_id" on_change="on_change_zip(zip_id)"/>
+		        <field name="zip" invisible="1"/>
+		        <newline/>
+				<field name="city"/>
+				<field name="state_id"/>
+		        <field completion="1" name="country_id" select="1"/>
+		        <newline/>
+		        <field name="longitude"/>
+		        <field name="latitude"/>
+	       </xpath>
+       </field>
+    </record>
+    </data>
+</openerp>

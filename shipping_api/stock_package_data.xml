@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="True">
+
+		<record id="shipping_package_type01" model="shipping.package.type">
+			<field name="name">UPS Letter</field>
+			<field name="code">01</field>
+		</record>
+
+		<record id="shipping_package_type02" model="shipping.package.type">
+			<field name="name">Customer Supplied Package</field>
+			<field name="code">02</field>
+		</record>
+
+		<record id="shipping_package_type03" model="shipping.package.type">
+			<field name="name">Tube</field>
+			<field name="code">03</field>
+		</record>
+
+		<record id="shipping_package_type04" model="shipping.package.type">
+			<field name="name">PAK</field>
+			<field name="code">04</field>
+		</record>
+
+		<record id="shipping_package_type05" model="shipping.package.type">
+			<field name="name">UPS ExpressBox</field>
+			<field name="code">21</field>
+		</record>
+
+		<record id="shipping_package_type06" model="shipping.package.type">
+			<field name="name">UPS 25KG Box</field>
+			<field name="code">24</field>
+		</record>
+
+		<record id="shipping_package_type07" model="shipping.package.type">
+			<field name="name">UPS 10KG Box</field>
+			<field name="code">25</field>
+		</record>
+
+		<record id="shipping_package_type08" model="shipping.package.type">
+			<field name="name">Pallet</field>
+			<field name="code">30</field>
+		</record>
+
+		<record id="shipping_package_type09" model="shipping.package.type">
+			<field name="name">Small Express Box</field>
+			<field name="code">2a</field>
+		</record>
+
+		<record id="shipping_package_type10" model="shipping.package.type">
+			<field name="name">Medium Express Box</field>
+			<field name="code">2b</field>
+		</record>
+
+		<record id="shipping_package_type11" model="shipping.package.type">
+			<field name="name">Large Express Box</field>
+			<field name="code">2c</field>
+		</record>
+
+	</data>
+</openerp>

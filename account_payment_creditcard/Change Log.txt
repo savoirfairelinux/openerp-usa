@@ -1,0 +1,53 @@
+===============================================================================
+ Version Change Log (account_payment_creditcard)
+===============================================================================
+2.1 on 2013-12-12 by Serpent Consulting Services Pvt. Ltd.
+	* Made the done state possible on sale order, added condition on transition.
+	
+2.0 on 2013-10-25 by Serpent Consulting Services Pvt. Ltd.
+	* Migration to v7 being taken to next level
+
+Version 1.16
+	Auto selection of Pay in outstanding transation lines
+
+Version 1.15
+	* Made Shipping Policy changes automatically corresponding to Payment Method in Sale Order
+	* Shipping Policy: CC Pre-Auth Pick Charge Ship when Payment Method: Credit Card
+	* Shipping Policy: Invoice from the Picking when Payment Method:  Invoice 
+	* Added Authorize button 
+Version 1.14
+	* Added new search buttons Manual Invoice and Credit Card Invoice in Customer Invoice
+Version 1.13
+	* Remove the authorize buttom to move near to Post button
+
+Version 1.12
+	* Removed buttons Pre-authorized and Paid from Deliver Orders and added new button Pre-authorized or Invoiced
+Version 1.11
+	* Store function invoiced field in sale order for make it searchable in delivery order 
+Version 1.10
+	* Default Payment Order in Sale Order 
+Version 1.09
+	* Added field to indicate the status of refund of ship
+
+Version 1.08
+	* Made save creditcard details available for all customer
+Version 1.07
+	* Modification of the default payment method in sale order to Invoice On Order After Delivery for Reseller
+
+Version 1.06
+	* Modification of the default payment method in sale order
+
+Version 1.05
+	* Displayed sale order pay button on in progress state
+
+Version 1.04
+	* Made sale order done if it is payed and shipped
+Version 1.03
+	* Add group CreditCard / Manager. Only this group member can use refund button.
+	* Added Allow Credit Card Processing and Allow Credit Card Refunds on journal
+	* Modified sale order view to add credit card pay button and made all buttons on a row
+	* Add Credit Card information on partner bank
+	* Add credit card details fields on voucher
+	* Encrypt credit card details
+	* Add credit card configuration fields on company
+	* Add credit card preauthorised and invoiced check field on stock picking

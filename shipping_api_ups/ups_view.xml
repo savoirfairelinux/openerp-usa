@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- ups shipping service type -->
+		<record id="form_view_for_ups_account_shipping_service" model="ir.ui.view">
+			<field name="name">form_view_for_ups_account_shipping_service</field>
+			<field name="res_model">ups.shipping.service.type</field>
+			<field name="model">ups.shipping.service.type</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Account Service" version="7.0">
+					<sheet>
+						<group>
+							<field name="description"/>
+							<field name="category"/>
+							<field name="shipping_service_code"/>
+							<field name="rating_service_code"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_view_for_ups_account_shipping_service" model="ir.ui.view">
+			<field name="name">tree_view_for_ups_account_shipping_service</field>
+			<field name="res_model">ups.shipping.service.type</field>
+			<field name="model">ups.shipping.service.type</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Account Service">
+					<field name="description"/>
+					<field name="category"/>
+					<field name="shipping_service_code"/>
+					<field name="rating_service_code"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_ups_account_shipping_service" model="ir.actions.act_window">
+			<field name="name">Shipping Service</field>
+			<field name="res_model">ups.shipping.service.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="ups_shipping_service_type_in_config" name="Shipping" parent="stock.menu_stock_configuration" />
+		<menuitem id="ups_shipping_service_type" name="Shipping Service"
+			parent="ups_shipping_service_type_in_config" action="action_for_ups_account_shipping_service" />
+
+
+		<!-- UPS shipping-->
+		<record id="form_view_for_ups_account_shipping" model="ir.ui.view">
+			<field name="name">form_view_for_ups_account_shipping</field>
+			<field name="res_model">ups.account.shipping</field>
+			<field name="model">ups.account.shipping</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Account" version="7.0">
+					<sheet>
+						<group colspan='4' col='4'>
+							<field name="name" select="1" placeholder="Name" colspan="2"/>
+							<field name="company_id" colspan="2"/>
+							<field name="atten_name" select="1"/>
+							<field name="ups_account_id" on_change="onchange_ups_account(ups_account_id)"/>
+							<field name="accesslicensenumber"/>
+							<field name="userid"/>
+							<field name="password" password="True"/>
+							<field name="active" select="1"/>
+							<field name="acc_no"/>
+							<field name="tax_id_no"/>
+							<field name="ups_shipping_service_ids" colspan="4"/>
+							<field name="address" colspan="4"/>
+						</group>
+						<newline/>
+						<separator string="Trade Mark" colspan="8"/>
+						<newline/>
+						<field name='trademark' colspan="8" nolabel="1"/>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="tree_view_for_ups_account_shipping" model="ir.ui.view">
+			<field name="name">tree_view_for_ups_account_shipping</field>
+			<field name="res_model">ups.account.shipping</field>
+			<field name="model">ups.account.shipping</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Account">
+					<field name="name" select="1"/>
+					<field name="accesslicensenumber"/>
+					<field name="userid"/>
+					<field name="acc_no"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_ups_account_shipping" model="ir.actions.act_window">
+			<field name="name">Account Shipping</field>
+			<field name="res_model">ups.account.shipping</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="shipping_api.ups_quick_shipping" parent="shipping_api.shipping_menu" sequence="20" name="UPS Quick Ship" action="action_quick_ship"/>
+		<menuitem id="summary_report" parent="shipping_api.shipping_menu" sequence="20" name="Summary Report" action="print_report_act_window"/>
+
+	</data>
+</openerp>
+

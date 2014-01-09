@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!--Invoice Form -->
+	   	<record id="invoice_form_inherit_1" model="ir.ui.view">
+			<field name="name">account.invoice.form.inherit</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+			     <xpath expr="//field[@name='amount_untaxed']" position="before">
+					<field name="total_weight_net"/>
+					<field name="shipcharge"/>
+					<field name="ship_method"/>
+				</xpath>     
+				<xpath expr="//button[@name='button_reset_taxes']" position="replace">
+					<button colspan="1" name="button_reset_taxes" states="draft" string="Compute Taxes" type="object" 
+                    		groups="base.group_user" icon="terp-stock_format-scientific"/>
+					<button colspan="1" name="%(action_view_for_shipping_rate_wizard)d" string="Calculate Shipping" type="action" 
+                    		help="Displays the shipping wizard." states="draft" groups="base.group_user" />
+				</xpath>
+				<xpath expr="//field[@name='amount_untaxed']" position="replace">
+					<field name="amount_untaxed" string="Net Total"/>
+				</xpath>
+				<xpath expr="//field[@name='product_id']" position="after">
+                    <field name="weight_net"/>
+                </xpath>
+			</field>
+		</record>
+		
+		<record id="invoice_supplier_form_inherit_1" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form.inherit</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='amount_untaxed']" position="after">
+					<field name="total_weight_net" />
+					<field name="shipcharge" />
+					<field name="ship_method"/>
+				</xpath>
+				<xpath expr="//button[@name='button_reset_taxes']" position="replace">
+					<button colspan="1" name="button_reset_taxes" states="draft" string="Compute Taxes" type="object" 
+							groups="base.group_user" icon="terp-stock_format-scientific"/>
+					<button colspan="1" name="%(action_view_for_shipping_rate_wizard)d" string="Calculate Shipping" type="action" 
+							help="Displays the shipping wizard." states="draft" groups="base.group_user" />
+				</xpath>
+				<xpath expr="//field[@name='amount_untaxed']" position="replace">
+					<field name="amount_untaxed" string="Net Total"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</openerp>

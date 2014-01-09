@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="company_shipping" model="ir.ui.view">
+			<field name="name">res.company.shipping.config</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/>
+			<field name="arch" type="xml">
+				<page string="Configuration" position="inside">
+					<newline/>
+					<separator string="Shipping Account" colspan="4"/>
+					<newline/>
+					<field name="logistic_company_ids" nolabel="1" colspan="4"/>
+					<label for='shipping' string='Ship Rate Method'/>
+					<field name="rate_selection" />
+				</page>
+			</field>
+		</record>
+
+	</data>
+</openerp>

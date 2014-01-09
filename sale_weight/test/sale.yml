@@ -1,0 +1,15 @@
+-
+  Create a sale order
+-
+  !record {model: sale.order, id: test_sale_order_so1}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-08-27'
+    order_line:
+     - name: '[PC1] Basic PC'
+       product_uom_qty: 1.0
+       price_unit: 885.0
+    order_policy: manual
+    partner_id: base.res_partner_2
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1

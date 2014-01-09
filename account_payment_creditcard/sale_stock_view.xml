@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Sale Order -->
+		<record id="view_order_form_changes_for_credit_card" model="ir.ui.view">
+			<field name="name">view_order_form_changes_for_credit_card</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_stock.view_order_form_inherit" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@string='View Delivery Order']" position="attributes">
+					<attribute name="attrs">{'invisible': ['|','|','|',('picking_ids','=',False),('picking_ids','=',[]),('state', 'not in', ('cc_auth','progress','manual')),('shipped','=',True)]}</attribute>
+				</xpath>
+				<xpath expr="//form/header/field[@name='state']" position="attributes">
+				    <attribute name="statusbar_visible">draft,sent,progress,cc_auth,invoiced,done</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		
+		<!-- Workflow signal to be changed for SO done process using authorise -->
+		<record id="sale_stock.trans_router_wait_invoice_shipping"  model="workflow.transition">
+			<field name="act_from" ref="sale.act_wait_invoice"/>
+			<field name="act_to" ref="sale.act_invoice_end"/>
+			<field name="condition">(order_policy=='picking' or ((order_policy=='credit_card') and cc_pre_auth and shipped))</field>
+		</record>
+
+	</data>
+</openerp>

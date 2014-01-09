@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_form_logistic_company" model="ir.ui.view">
+			<field name="name">view_form_logistic_company</field>
+			<field name="model">logistic.company</field>
+			<field name="arch" type="xml">
+				<form string="Logistic Company" version="7.0">
+					<sheet>
+                    	<group>
+							<field name="ship_company_code" colspan='2' />
+							<field name="company_id" colspan='2'/>
+							<field name="name"/>
+							<field name="url" widget="url"/>
+							<field name="test_mode" colspan='2'/>
+                            <field name="ship_account_id"/>
+						</group>
+						<notebook colspan="4">
+							<page string="Notes">
+								<field name="note" colspan="4" nolabel="1" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_tree_logistic_company " model="ir.ui.view">
+			<field name="name">view_tree_logistic_company</field>
+			<field name="model">logistic.company</field>
+			<field name="arch" type="xml">
+				<tree string="Logistic Company">
+					<field name="name"/>
+					<field name="url"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_for_logistic_company" model="ir.actions.act_window">
+			<field name="name">Logistic Company</field>
+			<field name="res_model">logistic.company</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Logistic Company" id="logistic_company_main" parent="base.menu_administration" />
+		<menuitem name="Logistic Company" id="logistic_company" parent="logistic_company_main" action="action_for_logistic_company"/>
+
+		<record id="partner_form_inherit_01" model="ir.ui.view">
+			<field name="name">partner_form_inherit_01</field>
+			<field name="model">res.partner</field>
+			<field name="priority" eval="30"/>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='category_id']" position="replace"/>
+			</field>
+		</record>
+
+	</data>
+</openerp>
+

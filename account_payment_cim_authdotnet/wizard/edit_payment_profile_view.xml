@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="edit_payment_profile_form_view" model="ir.ui.view">
+			<field name="name">edit_payment_profile_form_view</field>
+			<field name="model">edit.payment.profile</field>
+			<field name="arch" type="xml" >
+				<form string="Edit Payment Profile" version="7.0">
+				   	<group>
+						<field name="payment_profile_id" context="{'edit_payment_profile':'edit_payment_profile'}" attrs="{'readonly':[('state','=','preprocessing')]}"/>
+						<field name="cc_number"  attrs="{'invisible':[('state','in',['draft','preprocessing'])]}"/>
+						<field name="cc_ed_year" attrs="{'invisible':[('state','in',['draft','preprocessing'])]}"/>
+						<field name="cc_ed_month" attrs="{'invisible':[('state','in',['draft','preprocessing'])]}"/>
+						<field name="cc_code" attrs="{'invisible':[('state','in',['draft','preprocessing'])]}"/>
+						<field name="state" invisible='1' />
+					</group>
+					<footer>
+                        <button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="get_payment_profile_info" string="Next" type="object" icon="gtk-ok" default_focus="1" attrs="{'invisible':[('state','in',['done','processing'])]}"/>
+						<button name="update_payment_profile_info" string="Update" type="object" icon="gtk-ok" default_focus="1" attrs="{'invisible':[('state','in',['draft','preprocessing'])]}"/>
+	 				</footer>
+				</form>
+			</field>
+		</record>
+
+
+		<record id="action_edit_payment_profile" model="ir.actions.act_window">
+			<field name="name">Edit Payment Profile</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">edit.payment.profile</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="edit_payment_profile_form_view"/>
+			<field name="target">new</field>
+		</record>
+
+
+	</data>
+</openerp>

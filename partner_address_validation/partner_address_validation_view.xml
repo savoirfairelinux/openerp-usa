@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!--  Modifying partner, partner address and sale order view with address validation button -->
+		<record id="view_partner_form_inherit1" model="ir.ui.view">
+			<field name="name">view_partner_form_inherit2</field>
+			<field name="model">res.partner</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="base.view_partner_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='website']" position="after">
+					<field name="last_address_validation" />
+					<field name="classification" />
+					<newline />
+					<group colspan="2" col="3">
+						<field name="address_validation_method" />
+						<button name='%(part_addr_validate_act_window)d' type='action' string='Validate _Address' 
+								groups="base.group_sale_salesman,base.group_erp_manager,base.group_sale_manager,base.group_system"
+								context="{'default_address_id': active_id}"
+								attrs="{'invisible':[('address_validation_method','in',['none', False])]}"
+								/>
+					</group>
+					<newline/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="sale_order_addr_validate" model="ir.ui.view">
+			<field name="name">sale_order_validate_address</field>
+			<field name="model">sale.order</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='project_id']" position="after">
+						<field name="hide_validate" invisible="1"/>
+<!-- 						attrs="{'invisible':[('hide_validate','=',True)]}" -->
+					<group colspan="2" col="3">
+						<label string="Address Validation Method : " align="1.0" />
+						<field name="address_validation_method" nolabel="1" />
+						<button name="%(so_addr_validate_act_window)d" type="action"
+							string="Validate _Address"
+							groups="base.group_sale_salesman,base.group_erp_manager,base.group_sale_manager,base.group_system"  
+							context="{'default_sale_id': active_id}"
+							attrs="{'invisible':[('address_validation_method','in',['none', False])]}"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<report id="report_control_log_receipt"
+            string="Control Log Receipt"
+            model="stock.packages"
+            name="control.log.receipt.print"
+            rml="" 
+            menu="False"
+            auto="False"/>
+
+	</data>
+</openerp>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Journal -->
+		<record id="account_journal_changes_for_credit_card_01" model="ir.ui.view">
+			<field name="name">account_journal_changes_for_credit_card_01</field>
+			<field name="model">account.journal</field>
+			<field name="inherit_id" ref="account.view_account_journal_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Advanced Settings']" position="inside">
+					<group colspan="2" col="2">
+						<separator string="Credit Card Processing" colspan="4" />
+						<field name="cc_allow_processing" />
+						<field name="cc_allow_refunds" />
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Sale Order -->
+		<record id="sale_order_changes_for_credit_card" model="ir.ui.view">
+			<field name="name">sale_order_changes_for_credit_card</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='Other Information']" position="inside">
+					<group>
+						<field name="payment_method" />
+					</group>
+				</xpath>
+				<xpath expr="//page[@string='Other Information']" position="inside">
+					<group>
+						<field name="rel_account_voucher_id" readonly="1" />
+						<field name="cc_pre_auth" readonly="1" />
+						<field name="cc_ship_refund" readonly="1" invisible="1" />
+					</group>
+				</xpath>
+				<xpath expr="//button[@name='copy_quotation']" position="before">
+					<button icon="gtk-apply" string="Pay" type="object" name="pay" attrs="{'invisible': ['|','|',('state','!=','progress'),('invoiced', '!=', False),('order_policy','!=','credit_card')]}" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

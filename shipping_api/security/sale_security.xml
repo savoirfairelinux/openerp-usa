@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data noupdate="0">
+
+	    <record id="group_shipping_manager" model="res.groups">
+	        <field name="name">Shipping / Manager</field>
+	    </record>
+	    <record id="group_shipping_user" model="res.groups">
+	        <field name="name">Shipping / User</field>
+	    </record>
+	</data>
+	<data noupdate="1">
+		<record id="logistic_company_multicomp_rule" model="ir.rule">
+			<field name="name">Logistic Company</field>
+			<field name="model_id" ref="model_logistic_company"/>
+			<field name="global" eval="True"/>
+			<field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+		</record>
+	</data>
+</openerp>

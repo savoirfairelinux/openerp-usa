@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<menuitem id="shipping_menu" parent="stock.menu_stock_root" sequence="55" name="Shipping"/>
+
+		<!-- Shipping log -->
+		<record id="shipping_move_filter" model="ir.ui.view">
+			<field name="name">shipping.move.select</field>
+			<field name="model">shipping.move</field>
+			<field name="arch" type="xml">
+				<search string="Search Log">
+					<group col="10" colspan="4">
+						<filter name="draft" icon="terp-document-new" string="Draft" domain="[('state','=','draft')]"/>
+						<filter name="in_process" icon="terp-document-new" string="In Process" domain="[('state','=','in_process')]"/>
+						<filter name="ready_pick" icon="terp-document-new" string="Ready for Pickup" domain="[('state','=','ready_pick')]"/>
+						<filter name="shipped" icon="terp-document-new" string="Shipped" domain="[('state','=','shipped')]"/>
+						<filter name="delivered" icon="terp-document-new" string="Delivered" domain="[('state','=','delivered')]"/>
+						<filter name="hold" icon="terp-document-new" string="Hold" domain="[('state','=','hold')]"/>
+					</group>
+					<newline/>
+					<group expand="0" string="Group By...">
+						<filter string="Shipping Method"  domain="[]" context="{'group_by':'service'}"/>
+						<filter string="Customer/Reseller" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+						<filter string="Shipping Date" icon="terp-personal" domain="[]"  context="{'group_by':'ship_date'}"/>
+						<filter string="Shipping Status" icon="terp-personal" domain="[]"  context="{'group_by':'state'}"/>
+						<filter string="Logistics Company" icon="terp-personal" domain="[]"  context="{'group_by':'logis_company'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="shipping_move_tree" model="ir.ui.view">
+			<field name="name">shipping.move.tree</field>
+			<field name="model">shipping.move</field>
+			<field name="arch" type="xml">
+				<tree string='Shipping Log'>
+					<field name='partner_id'/>
+					<field name='pick_id'/>
+					<field name='sale_id'/>
+					<field name='logis_company'/>
+					<field name='with_ret_service'/> <!-- change:service  -->
+					<field name='pic_date'/>
+					<field name='ship_date'/>
+					<field name='package_weight'/>
+					<field name='tracking_no'/>
+					<field name='ship_to'/>
+					<field name='ship_cost'/>
+					<field name='state'/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Form view for Shipping Log-->
+		<record id="shipping_move_form" model="ir.ui.view">
+			<field name="name">shipping.move.form</field>
+			<field name="model">shipping.move</field>
+			<field name="arch" type="xml">
+				<form string='Shipping Log' version="7.0">
+					<sheet>
+						<group colspan="4" col="4" string="">
+							<field name='partner_id' readonly="1"/>
+							<field name='pic_date' readonly="1" />
+							<field name='with_ret_service' readonly="1"/>
+							<field name='package_weight' readonly="1"/>
+							<field name='tracking_no' readonly="1" />
+							<field name='ship_to' readonly="1"/>
+							<field name='package' readonly="1" />
+							<field name='ship_cost' readonly="1"/>
+							<field name='pick_id' readonly="1" />
+							<field name='sale_id' readonly="1"/>
+							<field name='ship_from' readonly="1"/>
+							<field name='ship_date' readonly="1"/>
+							<field name='state' readonly="1"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_shipping_log" model="ir.actions.act_window">
+			<field name="name">Shipping Log</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">shipping.move</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="shipping_move_filter"/>
+			<field name="view_id" ref="shipping_move_tree"/>
+			<field name="help">If you have more than one shop reselling your company products, you can create and manage that from here. 
+								Whenever you will record a new quotation or sales order, it has to be linked to a shop. The shop also defines
+								the warehouse from which the products will be delivered for each particular sales.
+			</field>
+		</record>
+
+		<menuitem id="shipping_log" parent="shipping_menu" sequence="10" name="Shipping Log" action="action_shipping_log"/>
+
+	</data>
+</openerp>

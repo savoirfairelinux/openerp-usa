@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!--  Quick ship wizard view -->
+        <record id="view_quick_ship" model="ir.ui.view">
+            <field name="name">Quick Ship</field>
+            <field name="model">quick.ship</field>
+            <field name="arch" type="xml">
+                <form string="Quick Ship" version="7.0">
+                    <group colspan='4'>
+						<group>
+							<field name='saleorder_id' on_change="onchange_sale_id(saleorder_id)"/>
+							<field name='sender'/>
+							<field name='send_addr'/>
+						</group>
+						<group>
+							<field name='recipient'/>
+							<field name='address_id' domain="[('partner_id','=',recipient)]"/>
+							<field name='quantum_view'/>
+						</group>
+					</group>
+<!-- 					<newline/> -->
+<!-- 					<button string="Configure"/> -->
+<!-- 					<newline/> -->
+					<notebook >
+						<page string="General">
+							<group colspan='4'>
+								<group string='Billing'>
+									<field name='logis_company'/>
+									<field name='ups_shipper_id'/>
+									<field name='ship_log_id'/>
+								</group>
+								<group string='Description'>
+									<field name='description'/>
+									<field name='inv_no'/>
+									<field name='ref_no'/>
+									<field name='ref1'/>
+								</group>
+							</group>
+								<button string="Get Rate" name="get_rate" type="object" colspan='2'/>
+								<field name='shipcharge' colspan='2'/>
+						</page>
+						<page string="Package">
+							<group colspan='4'>
+								<group string='Package'>
+									<field name='ups_service_id'/>
+									<field name='ups_packaging_type' widget="selection"/>
+									<field name='weight'/>
+<!-- 									<button string="Weight"/> -->
+								</group>
+								<group string='Information'>
+									<field name='length'/>
+									<field name='width'/>
+									<field name='height'/>
+									<field name='insured_val'/>
+									<field name='addn_service'/>
+								</group>
+							</group>
+						</page>
+						<page string="Additional Service Options" attrs="{'invisible': [('addn_service','==',False)]}">
+							<group colspan='4'>
+								<group>
+									<field name='sat_delivery'/>
+									<field name='verbal_confirm'/>
+									<field name='con_name'/>
+									<field name='con_phone'/>
+									<field name='cod'/>
+									<field name='amount'/>
+								</group>
+								<group>
+									<field name='acc_cash_moneyorder'/>
+									<field name='shipper_release'/>
+									<field name='deliv_conf'/>
+									<field name='dc_opt'/>
+									<field name='addnl_handling'/>
+								</group>		
+							</group>
+						</page>
+					</notebook>
+					<footer>
+						<button string="Print Shipping Label" name="print_label" type="object"/>
+					</footer>
+                	<field name='response' colspan="3" nolabel="1"/>
+                </form>
+            </field>
+        </record>
+		<!-- Action for quick ship wizard -->
+        <record id="action_quick_ship" model="ir.actions.act_window">
+            <field name="name">Quick Ship</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quick.ship</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_quick_ship"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>
+

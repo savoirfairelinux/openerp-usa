@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<!-- Shipping rate wizard -->
+        <record id="view_for_shipping_rate_wizard_shipping" model="ir.ui.view">
+            <field name="name">action_for_shipping_rate_wizard_shipping</field>
+            <field name="model">shipping.rate.wizard</field>
+             <field name="priority" eval="30" />
+            <field name="inherit_id" ref="sale_negotiated_shipping.view_for_shipping_rate_wizard" />
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='rate_select']" position="before" >
+            	    <group colspan="4" string="UPS" attrs="{'invisible':['|',('rate_selection','=','rate_card'),('ship_company_code','!=','ups') ]}">
+						<field name="ups_shipper_id" on_change="onchage_shipping_service(ups_shipper_id)" />
+						<field name="ups_service_id" />
+						<field name="ups_pickup_type" />
+						<field name="ups_packaging_type" widget="selection"/>
+						<field name="partner_id" invisible="1"/>
+						<field name="partner_shipping_id" domain="[('parent_id', '=', partner_id)]" attrs="{'required':[('rate_selection','=','rate_request')]}"/>
+					</group>
+            	</xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

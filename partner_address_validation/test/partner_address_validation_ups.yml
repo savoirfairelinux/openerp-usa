@@ -1,0 +1,55 @@
+-
+  In order to test Partner's address validation I create the records having configuration data.  
+- 
+  I Create a new record for ups account.
+- 
+  !record {model: ups.account, id: ups_account_0}:
+    acc_no: 2V688Y
+    accesslicensenumber: ACBF417726471AF6
+    max_lim_size: 10
+    password: openerp*123
+    url: wwwcie.ups.com
+    userid: hicksdp
+-
+  I modify the record of partner with address validation method.
+- 
+  !record {model: res.partner, id: base.res_partner_14}:
+    address_validation_method: 'ups.account'
+-
+  I click on 'Validate Address' button that popup a new window.
+-
+  !record {model: partner.addr_validate, id: partner_addr_validate_1}:
+-
+  I clicked on 'Update Address' button.
+-
+  !python {model: partner.addr_validate}: |
+    context.update({'active_model': 'res.partner','active_ids': [ref('base.res_partner_14')]})
+    partner_obj = self.update_address(cr, uid, [ref('partner_addr_validate_1')], context=context)
+-
+  I create a sale order with payment method, ups shipper and ups servce details.
+-
+  !record {model: sale.order, id: partner_adderess_validation_sale_order_so1}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-08-22'
+    order_line:
+     - name: '[CARD] Graphics Card'
+       product_id: product.product_product_24
+       product_uom_qty: 1.0
+       price_unit: 885.0
+    order_policy: manual
+    partner_id: base.res_partner_14
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+-
+  I click on 'Validate Address' button that popup a new window.
+-
+  !record {model: so.addr_validate, id: so_addr_validate_1}:
+-
+  I clicked on 'Update Address' button.
+-
+  !python {model: so.addr_validate}: |
+    context.update({'active_model': 'sale.order','active_ids': [ref('partner_adderess_validation_sale_order_so1')]})
+    partner_obj = self.update_address(cr, uid, [ref('so_addr_validate_1')], context=context)
+
+  

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Package Type -->
+		<record model="ir.ui.view" id="shipping_package_type_view_form">
+			<field name="name">shipping.package.type.view.form</field>
+			<field name="model">shipping.package.type</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Package" version="7.0">
+					<sheet>
+						<field name='name'/>
+						<field name='code'/>
+						<group colspan="4" col="6">
+							<field name="length"/>
+							<field name="width"/>
+							<field name="height"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="shipping_package_type_view_tree">
+			<field name="name">shipping.package.type.view.tree</field>
+			<field name="model">shipping.package.type</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Package">
+					<field name='name'/>
+					<field name='code'/>
+					<field name="length"/>
+					<field name="width"/>
+					<field name="height"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="shipping_package_type_view_search">
+			<field name="name">shipping.package.type.view.search</field>
+			<field name="model">shipping.package.type</field>
+			<field name="arch" type="xml">
+				<search string="Shipping Package">
+					<field name='name'/>
+					<field name='code'/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_shipping_package_type" model="ir.actions.act_window">
+			<field name="name">Shipping Package Types</field>
+			<field name="res_model">shipping.package.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="shipping_package_type_view_search"/>
+		</record>
+
+		<!-- Package -->
+		<record id="stock_packages_tree" model="ir.ui.view">
+			<field name="name">stock.packages.tree</field>
+			<field name="model">stock.packages</field>
+			<field name="arch" type="xml">
+				<tree string='Shipping Packages'>
+					<field name='packge_no' on_change="onchange_packge_no(parent.packages_ids,packge_no)"/>
+					<field name='weight' on_change="onchange_weight(parent.packages_ids, parent.tot_del_order_weight, weight)"/>
+					<field name='package_type' required='1' on_change="onchange_stock_package(package_type)"/>
+					<field name='length'/>
+					<field name='width'/>
+					<field name='height'/>
+					<field name='decl_val' invisible="1"/>
+<!-- 					<field name='ref2'/> -->
+<!-- 					<field name='ref2_number'/> -->
+					<field name='show_button' invisible="1"/>
+					<field name='negotiated_rates' readonly="1"/>
+<!--					<field name='shipment_identific_no' readonly="1"/-->
+					<field name='tracking_no' readonly="1"/>
+
+					<button string="Print Label" name="print_label" icon='STOCK_PRINT' type="object" attrs="{'invisible':[('show_button','=', False)]}"
+						help='This prints a specific label for the package. This button also allows for reprinting a button.
+ 						The label is stored in the document management system as a pdf.'/>
+				</tree>
+			</field>
+		</record>
+		
+		
+		<record id="stock_packages_search" model="ir.ui.view">
+			<field name="name">stock.packages.search</field>
+			<field name="model">stock.packages</field>
+			<field name="arch" type="xml">
+				<search string='Shipping Packages'>
+					<field name='packge_no'/>
+					<field name='weight'/>
+					<field name='package_type'/>
+					<field name='length'/>
+					<field name='width'/>
+					<field name='height'/>
+					<field name='decl_val' invisible="1"/>
+					<field name='ref2'/>
+					<field name='ref2_number'/>
+				</search>
+			</field>
+		</record>
+		
+
+		<!--Form view for Stock Package-->
+		<record id="stock_packages_form" model="ir.ui.view">
+			<field name="name">stock.packages.form</field>
+			<field name="model">stock.packages</field>
+			<field name="arch" type="xml">
+				<form string='Shipping Packages' version="7.0">
+					<sheet>
+						<group colspan="4" col="4">
+							<group colspan="2" col="2">
+							    <field name='id' invisible="1"/>
+								<field name='packge_no' on_change="onchange_packge_no(packge_no, parent.packages_ids)"/>
+								<field name='package_type' required='1' widget="selection" on_change="onchange_stock_package(package_type)"/>
+								<field name='weight' on_change="onchange_weight(parent.packages_ids,parent.tot_del_order_weight, weight)"/>
+								<field name='length'/>
+								<field name='width'/>
+								<field name='height'/>
+								<field name='show_button' invisible="1"/>
+							</group>
+							<group colspan="2" col="2">
+								<field name='description'/>
+								<field name='decl_val' invisible="1"/>
+								<field name='ref2'/>
+								<field name='ref2_number'/>
+								<group colspan="4" col="6">
+								<button string="Weight" name='' help='Click this button to weigh the package from the scale.' colspan="1"/>
+								<button string="Print Label" name="print_label" type="object" colspan="1" attrs="{'invisible':[('show_button','=', False)]}"  
+										help='This prints a specific label for the package. This button also allows for reprinting a button. The label is stored in the document management system as a pdf.'/>
+								<button attrs="{'invisible':[('show_button','=', False)]}" string="Print Packing Slip" type="object" name="print_packing_slips" colspan="1"/>
+								</group>
+							</group>
+						</group>
+						<newline/>
+						<notebook colspan="4">
+							<page string="Items" >
+								<!--field name='package_item_ids' nolabel='1' colspan="4"-->
+								<field name='stock_move_ids' nolabel='1' colspan="4" attrs="{'readonly':[('id','=',False)]}">
+									<!--
+									<tree string="Stock Moves">
+		                                <field name="product_id"/>
+		                                <field name="product_uom"/>
+		                                <field name="state"/>
+		                                <field name="product_uos"/>
+		                                <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+		                                <field name="prodlot_id" groups="base.group_extended"/>
+		                                <field name="cost"/>
+		                             </tree>
+		                             <form string="Stock Moves">
+		                                <field name="product_id"/>
+		                                <field name="product_uom"/>
+		                                <field name="product_uos"/>
+		                                <field name="name"/>
+		                                <field name="state"/>
+		                                <field name="product_qty" on_change="onchange_quantity(product_id, product_qty, product_uom, product_uos)"/>
+		                                <field name="prodlot_id" groups="base.group_extended"/>
+		                                <field name="cost"/>
+		                             </form>
+									-->
+		                       </field>
+							</page>
+							<page string="Result">
+								<group string="Shipping Results Details">
+									<field name='negotiated_rates' readonly="1"/>
+ 									<field name='shipment_identific_no' readonly="1"/> 
+ 									<field name='tracking_no' readonly="1"/> 
+									<field name='tracking_url' readonly="1" widget="url"/>
+									<field name='logo' widget="image" readonly="1"/>
+								</group>
+								<newline/>
+								<group string="Shipment Status">
+									<field name='ship_message' nolabel='1' colspan="4"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+<!-- fields of stock.packages is added in shipping.move -->
+<!--  		<record id="view_picking_shipping_move_inherit" model="ir.ui.view"> -->
+<!-- 			<field name="name">view_picking_shipping_move_inherit</field> -->
+<!-- 			<field name="model">shipping.move</field> -->
+<!-- 			<field name="inherit_id" ref="shipping_move_form"/> -->
+<!-- 			<field name="type">form</field> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<xpath expr="/form/group/field[@name='ship_date']" position="after"> -->
+<!-- 					<field name='shipment_identific_no' readonly="1"/> -->
+<!-- 					<field name='logo' widget="image"  readonly="1"/> -->
+<!-- 					<field name='tracking_url' widget="url" readonly="1"/> -->
+<!-- 					<button string="Print Label" name="print_label" type="object" help='This prints a specific label for the package. This button also allows for reprinting a button. The label is stored in the document management system as a pdf.'/> -->
+<!-- 					<newline/> -->
+<!-- 				</xpath> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+
+		<!--record id="shipment_package_item_search" model="ir.ui.view">
+			<field name="name">shipment.package.item.search</field>
+			<field name="model">shipment.package.item</field>
+			<field name="type">search</field>
+			<field name="arch" type="xml">
+				<search string='Shipment Package Items'>
+					<field name="product_id"/>
+					<field name="qty"/>
+					<field name="cost"/>
+				</search>
+			</field>
+		</record>
+
+		<record id="shipment_package_item_tree" model="ir.ui.view">
+			<field name="name">shipment.package.item.tree</field>
+			<field name="model">shipment.package.item</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string='Shipment Package Items' editable='top'>
+					<field name="product_id" on_change='onchange_product_id(product_id, qty)'/>
+					<field name="qty" on_change='onchange_product_id(product_id, qty)'/>
+					<field name="cost"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="shipment_package_item_form" model="ir.ui.view">
+			<field name="name">shipment.package.item.form</field>
+			<field name="model">shipment.package.item</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string='Shipment Package Items'>
+					<field name="product_id" on_change='onchange_product_id(product_id, qty)'/>
+					<field name="qty" on_change='onchange_product_id(product_id, qty)'/>
+					<field name="cost"/>
+				</form>
+			</field>
+		</record-->
+
+	</data>
+</openerp>
+

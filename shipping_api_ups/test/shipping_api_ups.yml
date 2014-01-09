@@ -1,0 +1,213 @@
+- 
+  I Create a reord for shipping label type.
+- 
+  !record {model: shipping.label.type, id: shipping_label_type_1}:
+    name: shipping label
+    code: EPL
+    http_user_agent: user1
+    width: 300
+    height: 450
+- 
+  I Create a ups account record having account number, password and accesslicense number.
+- 
+  !record {model: ups.account, id: ups_account_0}:
+    acc_no: 2V688Y
+    accesslicensenumber: ACBF417726471AF6
+    max_lim_size: 10
+    password: openerp*123
+    url: new tradation
+    userid: hicksdp
+-
+  I modify the record for logistic company having more shipping details.
+- 
+  !record {model: logistic.company, id: shipping_api.logistic_company_1}:
+    ship_company_code: 'ups'
+    ship_accpt_port: 443
+    ship_accpt_test_port: 443
+    ship_accpt_test_web: http://wwwcie.ups.com/ups.app/xml/ShipAccept
+    ship_accpt_web: http://wwwcie.ups.com/ups.app/xml/ShipAccept
+    ship_req_port: 443
+    ship_req_test_port: 443
+    ship_req_test_web: http://wwwcie.ups.com/ups.app/xml/ShipConfirm
+    ship_req_web: http://wwwcie.ups.com/ups.app/xml/ShipConfirm
+    ship_tracking_url: http://wwwapps.ups.com/WebTracking/processInputRequest?sort_by=status&tracknums_displayed=1&\\TypeOfInquiryNumber=T&loc=en_US&InquiryNumber1=%s&track.x=0&track.y=0
+    ship_void_port: 443
+    ship_void_test_port: 443
+    ship_void_test_web: http://wwwcie.ups.com/ups.app/xml/Void
+    ship_void_web: http://wwwcie.ups.com/ups.app/xml/Void
+    ups_shipping_account_ids:
+      - address: base.res_partner_1
+        atten_name: Shipping Department
+        name: ESF Dallas
+        ups_account_id: ups_account_0
+        ups_shipping_service_ids:
+          - description: UPS 2nd Day Air
+            shipping_service_code: '02'
+-
+  I create a record for partner's company having logistic company details.
+- 
+  !record {model: res.company, id: base.main_company}:
+    currency_id: base.EUR
+    address_validation_method: ups.account
+    lzipmatch: true
+    name: Your Company
+    paper_format: us_letter
+    partner_id: base.main_partner
+    schedule_range: 80.0
+    security_lead: 0.0
+    rate_selection: 'rate_request'
+    ship_company_code: 'ups'
+    logistic_company_ids:
+     - company_id: base.main_company
+       name: SerpentCS
+       ship_account_id: account.a_recv
+       test_mode: true
+       url: www.serpentcs.com
+-
+  I create a record for ups shipping service type
+-
+  !record {model: ups.shipping.service.type, id: ups_shipping_service_type_1}:
+    description: UPS 1st Day Air
+    shipping_service_code: 09
+-
+  I create a record of shipment for ups account.
+-
+  !record {model: ups.account.shipping, id: ups_account_shipping_0}:
+    name: ESF Dallas
+    ups_account_id: ups_account_0
+    accesslicensenumber: ACBF417726471AF6
+    userid: hicksdp
+    password: openerp*123
+    acc_no: 2V688Y
+    atten_name: Shipping Department
+    logistic_company_id: shipping_api.logistic_company_1
+    ups_shipping_service_ids: 
+     - description: UPS 2nd Day Air
+    address: base.res_partner_14
+-
+  I create a sale order with payment method, ups shipper and ups servce details.
+-
+  !record {model: sale.order, id: sale_order_so11}:
+    amount_total: 885.0
+    amount_untaxed: 885.0
+    date_order: '2013-08-22'
+    order_line:
+     - name: '[CARD] Graphics Card'
+       product_id: product.product_product_24
+       product_uom_qty: 1.0
+       price_unit: 885.0
+    order_policy: manual
+    partner_id: base.res_partner_14
+    pricelist_id: product.list0
+    partner_order_id: base.res_partner_14
+    pricelist_id: product.list0
+    shop_id: sale.sale_shop_1
+    payment_method: 'p_i_a'
+    ups_shipper_id: ups_account_shipping_0
+    ups_service_id: ups_shipping_service_type_1
+    ups_pickup_type: '01'
+-
+  I verify that the onchange of product was correctly triggered
+-
+  !assert {model: sale.order, id: sale_order_so11, string: The onchange function of product was not correctly triggered}:
+    - order_line[0].name == u'[PC1] Basic PC'
+    - order_line[0].price_unit == 885.0
+    - order_line[0].product_uom_qty == 1.0
+    - order_line[0].product_uom.id == ref('product.product_uom_unit')
+-
+  I Confirm the sale order
+-
+  !workflow {model: sale.order, action: order_confirm, ref: sale_order_so11}
+-
+  I modify the record of stock package with shipment digest and attached file name.
+-
+  !record {model: stock.packages, id: shipping_api.stock_packages_1}:
+    shipment_digest: test shipmentdigest
+    att_file_name: document1
+-
+  I modify the record with ups account's configuration for the picking.
+- 
+  !record {model: stock.picking, id: shipping_api.stock_picking_int0}:
+    ups_service: ups_shipping_service_type_1
+    shipper: ups_account_shipping_0
+    shipment_digest: shipmentdigest1
+    negotiated_rates: 100.0
+    shipment_identific_no: shipment10ex201
+    tracking_no: track001ex61
+    ups_pickup_type: '01'
+    ups_packaging_type: shipping_api.shipping_package_type_1
+    ups_cc_type: '01'
+    ups_cc_number: X9900Y52121
+    ups_cc_expiaration_date: '2013-08-22'
+    ups_cc_security_code: S8901988X0
+    ups_cc_address_id: base.res_partner_2
+    ups_third_party_account: X79Y71
+    ups_third_party_address_id: base.res_partner_1
+    ups_third_party_type: 'shipper'
+    ups_bill_receiver_account: X79Y71R001
+    ups_bill_receiver_address_id: base.res_partner_12
+    label_format_id: shipping_label_type_1
+- 
+  I create a shipping rate wizard record by clicking on 'Calculate Shipping' button.
+- 
+  !record {model: shipping.rate.wizard, id: shipping_rate_wizard_0}:
+    logis_company: shipping_api.logistic_company_1
+    rate_selection: rate_request
+    ship_company_code: 'ups'
+    ups_shipper_id: ups_account_shipping_0
+    ups_service_id: ups_shipping_service_type_1
+    ups_pickup_type: '01'
+    ups_packaging_type: shipping_api.shipping_package_type_1
+    partner_shipping_id: base.res_partner_2
+-
+  I clicked on 'Get Rate' button to calculate the rate of shipment.
+-
+  !python {model: shipping.rate.wizard}: |
+    context.update({'active_model': 'sale.order','active_ids': [ref('sale_order_so11')]})
+    data_obj = self.get_rate(cr, uid, [ref('shipping_rate_wizard_0')], context=context)
+-
+  I clicked on 'Create Shipment' button.
+-
+  !python {model: sale.order}: |
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    self.pool.get('stock.picking.out').write(cr, uid, picking_id, {'partner_id': ref('base.res_partner_14'), 'logis_company': ref('shipping_api.logistic_company_1'), 'ship_company_code': 'ups', 'ups_service': ref('service4'), 'shipper': ref('ups_account_shipping_0'), 'state': 'done',  'packages_ids': [(0, 0, {'package_type': ref('shipping_api.shipping_package_type02'), 'weight': 10.0, 'stock_move_ids': [(0, 0, {'company_id': ref('base.main_company'), 'location_dest_id': ref('stock.stock_location_customers'), 'location_id': ref('stock.stock_location_stock'), 'name': '[CARD] Graphics Card', 'partner_id': ref('base.res_partner_14'), 'product_id': ref('product.product_product_24'), 'product_qty': 1.0, 'product_uom': ref('product.product_uom_unit')})]})]}, context)
+-
+  I clicked on 'Process Shipment' button.
+-
+  !python {model: stock.picking.out}: |
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    data = self.process_ship(cr, uid, picking_id, context=context)
+-
+  I clicked on 'Print Labels' button.
+-
+  !python {model: stock.picking.out}: |
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    data = self.print_labels(cr, uid, picking_id, context=context)
+-
+  Check the report for printing multiple label.
+-
+  !python {model: stock.picking.out}: |
+    ctx={}
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    ctx.update({'model': 'stock.picking.out','active_ids': picking_id})
+    data_dict={}
+    from tools import test_reports
+    test_reports.try_report_action(cr, uid, 'shipping_api.multiple_label_print', active_model='stock.picking.out', active_ids=[ref('stock_picking_out_out23')], wiz_data=data_dict, context=ctx, our_module='shipping_api_ups')
+-
+  I clicked on 'Print Packing Slips' button.
+-
+  !python {model: stock.picking.out}: |
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    data = self.print_packing_slips(cr, uid, picking_id, context=context)
+-
+  Check the report for printing packing slips.
+-
+  !python {model: stock.picking.out}: |
+    ctx={}
+    picking_id = self.pool.get('stock.picking.out').search(cr, uid, [('sale_id', 'in', [ref('sale_order_so11')])])
+    ctx.update({'model': 'stock.picking.out','active_ids': picking_id})
+    pick_ids = self.pool.get('stock.packages').search(cr, uid, [('pick_id', 'in', picking_id)])
+    data_dict = {}
+    from tools import test_reports
+    test_reports.try_report_action(cr, uid, 'shipping_api.package_packing_slip_print', active_model='stock.packages', active_ids=pick_ids, wiz_data=data_dict, context=ctx, our_module='shipping_api_ups')
+

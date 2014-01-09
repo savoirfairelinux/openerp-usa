@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Label Type -->
+		<record model="ir.ui.view" id="shipping_label_type_view_form">
+			<field name="name">shipping.label.type.view.form</field>
+			<field name="model">shipping.label.type</field>
+			<field name="arch" type="xml">
+				<form string="Shipping Label" version="7.0">
+					<sheet>
+						<group>
+							<field name='name' string= "Description"/>
+							<field name='code' string="Label Code"/>
+						</group>
+						<group colspan="4" col="6">
+							<field name="http_user_agent"/>
+							<field name="width"/>
+							<field name="height"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="shipping_label_type_view_tree">
+			<field name="name">shipping.label.type.view.tree</field>
+			<field name="model">shipping.label.type</field>
+			<field name="arch" type="xml">
+				<tree string="Shipping Label" version="7.0">
+					<field name='name'/>
+					<field name='code'/>
+					<field name="http_user_agent"/>
+					<field name="width"/>
+					<field name="height"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="shipping_label_type_view_search">
+			<field name="name">shipping.label.type.view.search</field>
+			<field name="model">shipping.label.type</field>
+			<field name="arch" type="xml">
+				<search string="Shipping Label" version="7.0">
+					<field name='name'/>
+					<field name='code'/>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_shipping_label_type" model="ir.actions.act_window">
+			<field name="name">Shipping Label Types</field>
+			<field name="res_model">shipping.label.type</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="search_view_id" ref="shipping_label_type_view_search"/>
+		</record>
+		<menuitem id="ups_label_type_id" name="Label Format Code"
+			parent="ups_shipping_service_type_in_config" action="action_shipping_label_type" />
+	</data>
+</openerp>

@@ -1,0 +1,7 @@
+===============================================================================
+ Version Change Log (account_voucher_credits_us)
+===============================================================================
+1.24 2012-03-20 by Sujeet
+	* Code Migrate module, changed sale inherited view and set field and buttons in sale order view.
+	* Code optimized in rule.py and fixed some errors.
+	

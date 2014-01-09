@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="make_transaction_form_view" model="ir.ui.view">
+			<field name="name">make_transaction_form_view</field>
+			<field name="model">make.transaction</field>
+			<field name="arch" type="xml">
+				<form string="Make Transaction" version="7.0">
+				    <group>
+						<field name="amount"/>
+						<newline/>
+						<field name="trans_type" on_change="onchange_trans_type(trans_type)"/>
+						<field name="partner_id"/>
+						<field name="payment_profile_id"  context="{'make_transaction':'make_transaction'}"/>
+						<field name="invisible" invisible='1'  />
+						<field name="trans_id" attrs="{'invisible':[('invisible','=',True)]}"/>
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel" icon="gtk-cancel"/>
+						<button name="do_cc_transaction" string="Process Transaction" type="object" icon="gtk-ok" default_focus="1"/>
+	 				</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_make_transaction" model="ir.actions.act_window">
+			<field name="name">Make Transaction</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">make.transaction</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="make_transaction_form_view"/>
+			<field name="target">new</field>
+		</record>
+	</data>
+</openerp>

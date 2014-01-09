@@ -1,0 +1,14 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"security_shipping_rate_card_salesman","security.shipping.rate.card.salesman","model_shipping_rate_card","base.group_sale_salesman",1,1,0,0
+"security_shipping_rate_card_erp_manager","security.shipping.rate.card.erp.manager","model_shipping_rate_card","base.group_erp_manager",1,1,1,1
+"security_shipping_rate_card_manager","security.shipping.rate.card.manager","model_shipping_rate_card","base.group_sale_manager",1,1,1,1
+"security_shipping_rate_salesman","security.shipping.rate.salesman","model_shipping_rate","base.group_sale_salesman",1,1,0,0
+"security_shipping_rate_erp_manager","security.shipping.rate.erp.manager","model_shipping_rate","base.group_erp_manager",1,1,1,1
+"security_shipping_rate_manager","security.shipping.rate.manager","model_shipping_rate","base.group_sale_manager",1,1,1,1
+"security_shipping_rate_config_salesman","security.shipping.rate.config.salesman","model_shipping_rate_config","base.group_sale_salesman",1,1,0,0
+"security_shipping_rate_config_erp_manager","security.shipping.rate.config.erp.manager","model_shipping_rate_config","base.group_erp_manager",1,1,1,1
+"security_shipping_rate_config_manager","security.shipping.rate.config.manager","model_shipping_rate_config","base.group_sale_manager",1,1,1,1
+"security_zone_map_salesman","security.zone.map.salesman","model_zone_map","base.group_sale_salesman",1,1,0,0
+"security_zone_map_erp_manager","security.zone.map.erp.manager","model_zone_map","base.group_erp_manager",1,1,1,1
+"security_zone_map_manager","security.zone.map.manager","model_zone_map","base.group_sale_manager",1,1,1,1
+

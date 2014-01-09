@@ -1,0 +1,12 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"security_ups_account_shipping_user","security.ups.account.shipping.user","model_ups_account_shipping","base.group_sale_salesman",1,1,1,0
+"security_ups_account_shipping_manager","security.ups.account.shipping.manager","model_ups_account_shipping","base.group_erp_manager",1,1,1,1
+"security_ups_shipping_service_type_user","security.ups.shipping.service.type.user","model_ups_shipping_service_type","base.group_sale_salesman",1,1,1,0
+"security_ups_shipping_service_type_manager","security.ups.shipping.service.type.manager","model_ups_shipping_service_type","base.group_erp_manager",1,1,1,1
+"security_shipping_package_type_manager","security.shipping.package.type.manager","shipping_api.model_shipping_package_type","base.group_sale_manager",1,1,1,1
+"security_shipping_package_type_user","security.shipping.package.type.user","shipping_api.model_shipping_package_type","base.group_sale_salesman",1,1,1,0
+"security_shipping_label_type_user","security.shipping.label.type.user","shipping_api_ups.model_shipping_label_type","base.group_sale_salesman",1,1,1,0
+"security_shipping_label_type_manager","security.shipping.label.type.manager","shipping_api_ups.model_shipping_label_type","base.group_sale_manager",1,1,1,1
+"security_ups_account_shipping_employee","security.ups.account.shipping.employee","model_ups_account_shipping","base.group_user",1,1,1,1
+"security_ups_shipping_service_type_employee","security.ups.shipping.service.type.employee","model_ups_shipping_service_type","base.group_user",1,1,1,1
+"security_shipping_package_type_employee","security.shipping.package.type.employee","shipping_api.model_shipping_package_type","base.group_user",1,1,1,1

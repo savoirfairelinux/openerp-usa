@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Adding credit card preautohrised and payed check box on delivery order -->
+   		<record id="view_picking_out_form_cc_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.cc_inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+            <field name="arch" type="xml">
+		         <xpath expr="//field[@name='company_id']" position="after">
+		 			<field name="cc_pre_auth" readonly="1"/>
+		 			<field name="invoiced" readonly="1"/>
+			     </xpath>
+            </field>
+        </record>
+        <!-- Tree -->
+        <record id="view_picking_out_tree_cc_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.out.tree.cc_inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_tree"/>
+            <field name="arch" type="xml">
+             	<xpath expr="//field[@name='backorder_id']" position="before">
+	  				<field name="cc_pre_auth" readonly="1"/>
+	  				<field name="invoiced" readonly="1"/>
+			     </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_out_search_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.out.search.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+				<xpath expr="//filter[@string='Journal']" position="after">
+						<separator orientation="vertical"/>
+                        <!--<filter icon="terp-rating-rated" string="Pre-authorized" domain="[('cc_pre_auth','=',True)]" />
+                        <filter icon="terp-rating-rated" string="Paid" domain="[('invoiced','=',True)]" />-->
+                        <filter icon="terp-rating-rated" string="Pre-authorized / Invoiced" domain="['|',('cc_pre_auth','=',True),('invoiced','=',True)]" />
+				</xpath>
+            </field>
+        </record>
+
+	</data>
+</openerp>

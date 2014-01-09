@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<!-- UPS Account -->
+		<record id="form_view_for_ups_account" model="ir.ui.view">
+			<field name="name">form.view.for.ups</field>
+			<field name="model">ups.account</field>
+			<field name="arch" type="xml">
+				<form string="ups">
+					<field name="accesslicensenumber"/>
+					<field name="acc_no"/>
+					<field name="userid"/>
+					<field name="password" password="True"/>
+					<field name="ups_active"/>
+					<field name="url"/>
+					<field name="max_lim_size"/>
+				</form>
+			</field>
+		</record>
+	
+		<record id="tree_view_for_ups_account" model="ir.ui.view">
+			<field name="name">tree.view.for.ups</field>
+			<field name="model">ups.account</field>
+			<field name="arch" type="xml">
+				<tree string="ups">
+					<field name="accesslicensenumber"/>
+					<field name="userid"/>
+					<field name="ups_active"/>
+					<field name="acc_no"/>
+					<field name="url"/>
+					<field name="max_lim_size"/>
+				</tree>
+			</field>
+		</record>
+	
+		<record id="action_for_ups_account_menu" model="ir.actions.act_window">
+			<field name="name">UPS Account</field>
+			<field name="res_model">ups.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="tree_view_for_ups_account"/>
+		</record>
+	
+		<menuitem id="ups_account_menu"
+					name="UPS Account"
+				 	parent="address_validation_main"
+					action="action_for_ups_account_menu" />
+
+	</data>
+</openerp>
+

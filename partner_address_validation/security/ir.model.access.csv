@@ -1,0 +1,13 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"security_ups_account_user","security.ups.account.user","model_ups_account","base.group_sale_salesman",1,1,0,0
+"security_ups_account_manager","security.ups.account.manager","model_ups_account","base.group_erp_manager",1,1,1,1
+"security_ups_account_sale_manager","security.ups.account.sale.manager","model_ups_account","base.group_sale_manager",1,1,1,1
+"security_ups_account_partner_manager","security.ups.account.partner.manager","model_ups_account","base.group_partner_manager",1,1,1,0
+"security_so_addr_validate_manager","security.so.addr_validate.manager","model_so_addr_validate","base.group_sale_manager",1,1,1,1
+"security_so_addr_validate_user","security.so.addr_validate.user","model_so_addr_validate","base.group_sale_salesman",1,1,1,1
+"security_response_data_model_manager","security.response.data.model.manager","model_response_data_model","base.group_sale_manager",1,1,1,1
+"security_response_data_model_user","security.response.data.model.user","model_response_data_model","base.group_sale_salesman",1,1,1,1
+"security_fedex_account","security.fedex.account","model_fedex_account","base.group_partner_manager",1,1,1,1
+"security_usps_account","security.usps.account","model_usps_account","base.group_partner_manager",1,1,1,1
+"security_fedex_account","security.fedex.account","model_fedex_account","base.group_user",1,0,0,1
+"security_usps_account","security.usps.account","model_usps_account","base.group_user",1,1,0,0

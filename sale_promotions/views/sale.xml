@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_sale_promo_form">
+            <field name="name">sale.order.promo.form</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@string='Other Information']/group/group/field[@name='origin']" position="after">
+                    <field name='coupon_code' attrs="{'readonly':[('state','!=','draft')]}" />
+                </xpath>
+            </field>
+        </record>
+		<record model="ir.ui.view" id="view_sale_promo_form2">
+            <field name="name">sale.order.promo.form2</field>
+            <field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="/form/header/button[@name='action_button_confirm']" position="after">
+                    <button name="apply_promotions" type="object" states="draft" string="Apply Promotions" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>
