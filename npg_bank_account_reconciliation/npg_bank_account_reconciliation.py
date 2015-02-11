@@ -253,7 +253,7 @@ class bank_acc_rec_statement(osv.osv):
             line_ids = account_move_line_obj.search(cr, uid, domain, context=context)
             for line in account_move_line_obj.browse(cr, uid, line_ids, context=context):
                 if obj.keep_previous_uncleared_entries:
-                    #only take bank_acc_rec_statement at state cancel or done
+                    # only take bank_acc_rec_statement at state cancel or done
                     if not self.is_b_a_r_s_state_done(cr, uid, line.id, context=context):
                         continue
                 res = (0, 0, self._get_move_line_write(line))
@@ -261,7 +261,8 @@ class bank_acc_rec_statement(osv.osv):
                     to_write['credit_move_line_ids'].append(res)
                 else:
                     to_write['debit_move_line_ids'].append(res)
-                obj.write(to_write)
+
+            obj.write(to_write)
 
         return True
 
